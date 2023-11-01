@@ -1,0 +1,447 @@
+Which Is The Best Laptop For Machine Learning and Artificial Intelligence?
+
+
+With the rise in analysis platforms across every sector, leading big tech companies and startups are integrating Machine Learning and Deep Learning in their existing system. This advancement has led to a major revolution in the hardware required for these setups. But what about students and beginners who are trying to enter this domain, who are willing to take some time off and are working towards entering the Artificial Intelligence sector, what kind of machine should they invest on depending on the budget they have? We present a variety of options that are available in the market.
+
+Advertisement
+To have a personal machine for the projects you have in mind, one needs to choose between mobility of their machine, that is, if they want to carry it around – a laptop. Or a machine for training the algorithms alone – a customized desktop at home or work.
+
+What are the minimum requirements of the machine?
+ Note: Only Nvidia GPUs have the CUDA extension which allows GPU support for Tensorflow and PyTorch.
+
+Get started with deep learning using MATLAB
+
+
+
+
+High End Laptops
+
+
+Budget Laptops
+You can also find budget laptops with CUDA enabled Nvidia GPUs for deep learning. The gaming laptops with these specs are essentially not for gaming but can also be used for deep learning. With a downgrade in RAM and CPU, one can opt this for training.
+
+ 
+
+
+
+One can build their own PC for a lower price compared to these pricy laptops. This article will give you a brief information on how to customize a PC for deep learning. With the advancement in tech, the GPU prices are skyrocketing with addition of new Nvidia Tesla GPUs. It is better to invest on an high end GPU by compromising the CPU for deep learning purposes.
+
+What are External GPU Docks?
+An external GPU is an addition to the existing laptop where one can buy the external graphic dock extension like the Asus ROG XG Station Graphics Dock. This is can be customized based on your specifications.
+
+
+
+Conclusion
+By having one of these laptops, one can build, train and test their own deep learning models in a short span of time. 
+When it comes to deep learning, tuning the hyper parameters being a tedious  and time consuming task, it is advisable to have a power powerful machine to save time.
+
+
+Buyer's Guideby Aadam on October 28, 20187 Best Laptops For Deep Learning and Machine Learning (2018)Best laptops for deep learning and machine learning
+Though there are various fields out there which requires a laptop with good specifications and you can get it at an affordable price but that’s not the same case for deep learning. You need to have more than the good specification for deep learning.
+
+Many people try to build their own desktop PC for deep learning but If you have decided to buy a laptop for you to carry around with yourself, then I’m more than happy to help you.
+
+Today I’m going to talk about 7 Best Laptops for Deep learning and Machine learning which offers great specifications and delivers good value for your hard-earned money.
+
+Before I talk about any of the laptops, You need to keep these 5 important aspects in mind before getting a laptop for deep learning.
+
+1. Budget: The first and foremost thing before choosing any laptop for machine learning is setting the right BUDGET. I would recommend you to have the budget of at least $1000 and a maximum of $3000. At this price range, you’ll surely get a powerful machine with high-quality specifications.
+
+2. CPU: Intel’s Core I7 is highly recommended for machine learning. Don’t go for Core i5 even if you have a lower budget or else you may face performance issues for sure.
+
+3. GPU: I don’t need to remind you that you need at least a decent GPU if you want to render anything in your project or job. You shouldn’t buy a laptop without a dedicated GPU for deep learning. The recommended GPU for machine learning or deep learning would be Nvidia Nvidia’s 10 series.
+
+4. RAM: A 16GB memory would be sufficient for deep learning but you can opt for 32GB If you have a higher budget. Less than 16GB RAM can cause some issues while multitasking.
+
+5. Portability: Powerful hardware means a heavy laptop. Most of the laptops are heavy on this list. Only a couple of them is lightweight and portable. If you don’t travel with your laptop regularly, then there is no problem in buying a heavy laptop. Choose your option wisely.
+
+Okay, Let me show you what are those 6 amazing laptops.
+
+Contents [hide]
+
+Top 7 Laptops for Deep Learning and Machine Learning in 2018
+ 1. TensorBook
+ 2. Dell Inspiron i5577- The cheapest laptop for Deep learning
+ 3. Eluktronics Pro-X P650HS-G
+ 4. GIGABYTE Aero 15X- Best Value For Money Laptop
+ 5. Acer Predator 15-A Cheap & Good Laptop for Machine Learning
+ 6. Asus ROG Zephyrus GX501
+ 7. Acer Predator Triton 700- A Powerful laptop for deep learning
+Top 7 Laptops for Deep Learning and Machine Learning in 2018
+No.	Name	CPU	GPU	 
+1	TensorBook	Intel Core i7-8750H	GTX 1070 8GB	
+Check Price
+Dell Inspiron i5577 (Cheapest option)	Intel Core i7-7700HQ	GTX 1050 4GB	
+Check Price
+3	Eluktronics Pro-X P650HS-G	Intel Core Intel i7-7700HQ	GTX 1070 8GB	
+Check Price
+4	GIGABYTE Aero 15X (Editor's Choice)	Intel Core i7-8750H	GTX 1070 8GB	
+Check Price
+5	Acer Predator 15	Intel Core i7-6700HQ	GTX 1070 8GB	
+Check Price
+6	Asus ROG Zephyrus GX501	Intel Core i7-8750H	GTX 1080 8GB	
+Check Price
+7	Acer Predator Triton 700	Intel Core i7-7700HQ	GTX 1080 8GB	
+Check Price
+ 1. TensorBook
+TensorBook
+
+The TensorBook by Lambda Labs is one of the perfect laptops you can get for this profession. I have rated this laptop #1 on this list because this machine is created especially for deep learning and machine tasks.
+
+The TensorBook comes with 15.6 inch 4k QHD display which is great for deep learning tasks and entertainment purpose such as watching movies, online streaming or gaming.
+
+The storage offered on this machine is 500GB SSD and 32GB RAM which is more than adequate for both professional and personal purpose.
+
+One of the best things about this laptop is it comes with pre-installed deep learning framework such as TensorFlow, keras, Caffe2 and more. You don’t need to worry about the compatibility of these software on this machine at all.
+
+When it comes to CPU, you’ll be getting Intel’s 8th gen core i7 processor i.e Intel Core i7-8750H which does a fine job at handling multitasking without any problems.
+
+You are getting a powerful GPU on this machine i.e NVIDIA 1070 8GB RAM GPU which does an absolutely great job while running any deep learning software without causing any issues.
+
+While doing any basic tasks, you can expect up to 2 hours of battery life and while running any heavy demanding programs, you can get around 45 minutes of battery life.
+
+Pros
+Build quality is good.
+Specifically build for deep learning.
+Cons
+Might be expensive for some students.
+Specs Recap:
+Screen Size: 15.6 Inches.
+Storage:  512GB SSD.
+RAM: 32GB DDR4 RAM.
+Processor: Intel Core i7-8750H
+Graphics card: Nvidia GTX 1070 8GB.
+Operating System: Ubuntu 18.04 LTS With Lambda Stack
+Weight: 4.2 lbs.
+Check Price Now
+
+ 2. Dell Inspiron i5577- The cheapest laptop for Deep learning
+Dell Inspiron i5577
+
+If you are looking for the cheapest laptop for Deep learning, then I’m sure that this is one of the best options you have right now. It costs $50 less than the minimum budget (i.e $950) which I have referred above.
+
+The Dell Inspiron i5577 comes with 15.6-inch TN panel which has faster refresh rates as mentioned by Ryan. The build of the laptop is rigid and sturdy which does justify its price. The laptop weighs 5.7 lbs (2.5 kg) which I think slightly heavy and not easy to carry while traveling.
+
+Dell has offered 16GB DDR4 memory for multitasking and 512GB PCIe SSD for storage. The processor you’ll be getting on this machine is Quad-core Intel Core i7-7700HQ which handles pretty everything from ba. One of the best things about this laptop is it has very low fan noise even in the heavy load.
+
+For gaming experience, Dell has included NVIDIA GTX 1050 which might not be as powerful as GTX 1060 or 1070 but for its pricing, I would say it performs really well. Here’s the performance of two popular games played on this laptop.
+
+1. Skyrim= 40 FPS (Ultra settings)
+
+2. Neverwinter= 36 FPS (High settings)
+
+when it comes to battery life, you can expect around 3 hours of heavy and lightweight usage. While using it for browsing or online streaming, you can expect 7-8 hours of battery life which is pretty decent I would say.
+
+Pros
+The cheapest laptop on this list.
+Decent battery life.
+Cons
+An IPS panel would been better.
+Specs Recap:
+Screen Size: 15.6 Inches.
+Storage:  512GB SSD.
+RAM: 16GB DDR4 RAM.
+Processor: Intel Core i7-7700HQ
+Graphics card: Nvidia GTX 1050 4GB.
+Operating System: Windows 10.
+Weight: 5.7 lbs.
+Check Price Now
+
+ 
+
+ 3. Eluktronics Pro-X P650HS-G
+Eluktronics Pro-X P650HS-G
+
+The Eluktronics Pro-X P650HS-G is a 15.6-inch laptop which has a great build quality and weighs 6 lbs (2.7 kg).
+
+The laptop has 4 variants but I would suggest you go for the variant with 256GB SSD+ 16GB RAM.
+
+The SSD offered by Eluktronics on this machine is PCIe. You can surely expect a faster performance compared to SATA SSD. The 16GB is really good at handling any type of extreme tasks.
+
+Note: If you are hearing about Eluktronics, then don’t worry at all. They are reliable and offer some top quality laptops. You can follow this Reddit thread to read the reviews of their company. The Eluktronics Pro-X P650HS-G has ratings of 4.6/5 on Amazon which has rated by almost 50 customers.
+
+You’ll get Intel’s Kaby like processor i.e Core i7-7700HQ which is very good for multitasking and the heat management of the system is excellent I have to say. The system remains cool even while performing some of the heavy tasks.
+
+The GPU offered on this machine is NVIDIA GeForce GTX 1070 with 8GB DDR5 VRAM. The GPU is based on Pascal architecture which is perfectly suitable for professions like this. If you are a passionate gamer, you can surely play almost any game at very high frame rates. Having a powerful GPU has multiple benefits for power users.
+
+The ports available on this laptop are 2 USB 3.1 Gen 2 port (Type-C), 3 USB 3.0, HDMI, 2 Mini display port and an SD card reader. The port selection is good but the inclusion of Thunderbolt would have been better.
+
+As a gaming and power consuming laptop, it is expected that this laptop won’t have a great battery life. The maximum battery life you can expect on this machine while doing any deep learning tasks is 2 hours. You need to keep the charger along with all the time If you are traveling with this somewhere.
+
+Overall, This is a good laptop for machine learning I would say.
+
+Pros
+Great build quality.
+Solid performance.
+Cons
+Lack of Thunderbolt port.
+Specs Recap:
+Screen Size: 15.6 Inches.
+Storage:  256GB SSD.
+RAM: 16GB DDR4 RAM.
+Processor: Quad Core Intel i7-7700HQ.
+Graphics card: Nvidia GTX 1070 8GB.
+Operating System: Windows 10.
+Weight: 6 lbs.
+Check Price on Amazon
+
+ 4. GIGABYTE Aero 15X- Best Value For Money LaptopGIGABYTE Aero 15X
+The GIGABYTE Aero 15X is another great laptop which provides a real value for money. It’ll cost you around $2200 and I must say this is one of the best value for money laptop for deep learning without any doubt.
+
+It comes with 15.6-inch full HD display with very minimal bezels. This is a 144Hz panel which has good viewing angles and color accuracy. There is another variant which comes with the 4k display but I would advise you to stick with the full HD model as it’ll give you longer battery life.
+
+Mostly, the body of the laptop is made out of aluminum and the rest of them are plastic. Considering the specs offered on this machine, I have to say this is a fairly portable laptop. It weighs at 4.6 lbs (2.1 kg).
+
+You’ll be getting 512GB NVME PCIe SSD on this laptop. The SSD responds quickly and performs very well. The read and write speeds of the SSD are 884 MBps and 721 MBps respectively. GIGABYTE have offered 16GB DDR4 memory and an empty DIMM to upgrade the RAM If you want to improve the performance.
+
+The CPU inside the laptop you’ll find is Intel’s 8th Gen core i7 processor i.e Intel Core i7-8750H which performs a lot better than the 7th gen processor. The processor handles tasks very well and there are almost no issues regarding thermal throttling.
+
+You’ll get Nvidia GeForce GTX 1070 graphics card on this machine which is same as the above laptop. Just like I said before, this is a powerful GPU which is suitable for high demanding tasks like deep learning.
+
+To give some idea about the performance of this GPU on this machine, have a look at the chart below.
+
+GIGABYTE Aero 15X gaming performance
+Source
+
+These are just the performance of 3 popular games. This graphics card can do a lot more than playing some heavy demanding games.
+
+The ports selection of the laptop is very good I would say. On the left side, you’ll get RJ Ethernet, USB 3.0, HDMI 2.0 and mini port. On the right side, there are 2 USB 3, USB-C thunderbolt 3 and SD card reader. The surprising part of the SD card reader is, it is Powered by UHS 2 which has the transfer speed of 250-300 MB/s.
+
+And lastly, the battery life.
+
+Considering the specs everyone would expect to have a short battery life on this GIGABYTE Aero 15X but that’s not actually true. For personal usage, you can expect around 6 hours of battery life and while doing tasks related to machine learning or deep learning, you can expect up to 3 hours  which is quite great I would say.
+
+Pros
+Amazing performance.
+Easy to travel with.
+Good battery life.
+Cons
+Trackpad isn’t upto the mark.
+Specs Recap:
+Screen Size: 15.6 Inches.
+Storage:  512GB SSD.
+RAM: 16GB DDR4 RAM.
+Processor: Intel Core i7-8750H.
+Graphics card: Nvidia GTX 1070 8GB.
+Operating System: Windows 10 home.
+Weight: 4.6 lbs.
+You can watch the full video review by Dave2D below If you want to learn more.
+
+
+
+Check Price on Amazon
+
+ 5. Acer Predator 15-A Cheap & Good Laptop for Machine Learning
+Acer Predator 15
+
+I have talked about Acer Predator Helios 300 on this site several times but this is the first time I’m going to talk about Acer Predator 15 here and I’m going to tell you why you should consider getting this beast for yourself.
+
+Before I talk about anything about this laptop let me tell you that this is the cheapest and affordable laptop for machine learning. The above two laptops surely provide great value but they cost very high compared to this amazing laptop.
+
+The body of the Acer Predator 15 is mostly made of plastic yet it is sturdy and doesn’t feel like a cheap laptop. It has a 15.6 inch full HD IPS panel which comes with G-Synch technology and has excellent viewing angles.
+
+Unlike the above GIGABYTE Aero 15X, this laptop isn’t at all portable. It weighs 8.2 pounds (3.7 kg) which I don’t think anyone can carry it without any laptop bag. If you are looking for a portable machine then I think this laptop may not be your right choice.
+
+Coming to the storage part, you’ll get 256GB+ 1TB 7200 RPM hard disk drive which is an ideal choice for both professional and personal purpose. Acer has offered 16GB DDR4 RAM which can be upgraded up to 64GB.
+
+Inside the laptop, you’ll get slightly older processor i.e Intel Core i7-6700HQ compared to the above two laptops. The performance of the laptop is reasonably good and it has been paired with GTX 1070. This review shows that the gaming performance on this machine is equivalent to some desktop performance.
+
+You can expect 4-5 hours of battery life while doing tasks like Multimedia, MS Word/ Excel, using Chrome/ Mozilla etc. When you are doing some heavy tasks, you can expect the maximum of 2 hours of battery life which is pretty usual for a gaming machine.
+
+I have no hesitation to recommend this as one of the best laptop for deep learning or machine learning as it has almost everything which requires for this profession.
+
+Pros
+Provides great value at an affordable price.
+Great display.
+Performance is top class.
+Cons
+Quite heavy.
+Specs Recap:
+Screen Size: 15.6 Inches.
+Storage:  256GB SSD+ 1TB HDD.
+RAM: 16GB DDR4 RAM.
+Processor: Intel Core i7-6700HQ
+Graphics card: Nvidia GTX 1070 8GB.
+Operating System: Windows 10.
+Weight: 8.2 lbs.
+Check Price on Amazon
+
+ 6. Asus ROG Zephyrus GX501
+ROG Zephyrus GX501
+
+The Asus ROG Zephyrus GX501 is quite an expensive laptop which may not be a value for money machine as others here but still, it has some powerful specs to offer.
+
+This is a 2018 model of ROG Zephyrus GX501 in which Asus has made some improvements from its predecessor. One of the major changes in the newer model is its display. You’ll be getting 144Hz IPS panel instead of a 120Hz panel. The display on this laptop has good color reproduction and there are almost no issues regarding the display.
+
+The laptop has been upgraded from 7the Gen Core i7 to 8th Gen processor i.e Intel Core i7-8750H. This is the same processor you’ll get in GIGABYTE Aero 15X. You’ll be getting 6 cores on this processor compared to 4 in the older one. You can surely expect at least 10%-15% improvement in the performance department in 8th Gen processor.
+
+Asus has offered Nvidia GTX 1080 graphics card on this powerful machine. You can expect a significant amount of improvement in the gaming performance too. This could be one of the best all-round laptops for everything from good display to an extremely high level of gaming experience.
+
+You can play some popular games such as Overwatch at 95 FPS, Destiny 2 at 120 FPS on high settings. The idea of presenting the gaming performance here is to show you how well the graphics card can perform. From the performance of these games, you can clearly assume that GTX 1080 is a very powerful guy who can easily handle any type of tasks related to graphics.
+
+The laptop weighs almost 5 pounds (2.26 kg) which may not heavy but it isn’t lightweight either. You can travel with it occasionally but not always.
+
+One of the concerning things about this laptop is regarding the fan. It gets a little louder than usual while performing some heavy tasks. Asus should have done something while offering this laptop at a hefty price. The ports you’ll get on this laptop are HDMI 2.0, USB 3.1 Type C, and USB Type C with Thunderbolt 3.
+
+The battery life on this laptop is pretty standard for a gaming machine. You can get around 4 hours of basic or lightweight tasks and 1.5-2 hours of gaming or heavy tasks.
+
+This is surely one of the best laptop for tensorflow, Weka etc.
+
+Pros
+Powerful CPU & GPU.
+Improved display.
+Cons
+Very expensive.
+Specs Recap:
+Screen Size: 15.6 Inches.
+Storage:  512GB SSD
+RAM: 16GB DDR4 RAM.
+Processor: Intel Core i7-8750H Processor.
+Graphics card: Nvidia GTX 1080 8GB.
+Operating System: Windows 10 Pro.
+Weight: 5 lbs.
+Check Price on Amazon
+
+ 7. Acer Predator Triton 700- A Powerful laptop for deep learning
+Acer Predator Triton 700
+
+Finally, the big monster is here. The Acer Predator Triton 700 could be slightly more powerful than the above ASUS ROG Zephyrus GX501 but Both laptops are priced similarly laptops which costs around $2800 mark.
+
+As you might expect, at this price range you’ll be getting a laptop with a premium build quality and that’s what Acer has delivered on this Predator Triton 700. The body of this laptop is entirely made out of smetal which is very strong and rigid. Surely it won’t give you a feel of a cheap laptop.
+
+One of the key things to mention about this laptop is its unique trackpad. Instead of a square type trackpad at the bottom of the keyboard area, you’ll be getting a big sized glass trackpad at the top area. Though it may take some time to get used to it, it works pretty fine. You are getting a customizable RGB Backlit keyboard on this machine which is an amazing thing to have.
+
+The 512GB PCIe SSD performs extremely fast whose read and write speeds are 3300 MBps and 2650 MBps respectively. The 32GB DDR4 RAM offered on this machine will surely help you run multitasking with ease. You are getting the same CPU as the above laptop i.e Intel Core i7-7700HQ which does a great as usual.
+
+This is the second laptop on this list which comes with powerful Nvidia GTX 1080 with 8GB GDDR5X VRAM. The gaming performance on this machine is as usual outstanding with this powerful GPU which can play almost any games even at the highest settings.
+
+Let me give you an idea about that,
+
+Acer Predator Triton 700 gaming performance
+As you can say this beast can handle almost any game flawlessly. This laptop is also suitable for heavy tasks such as video editing, music production etc.
+
+You’ll be getting a handful of ports on this machine. They are 1 USB Type C thunderbolt,3 USB 3.0, Ethernet jack, 1 USB 2.0, HDMI and a display port.
+
+This laptop weighs only 5.4 pounds (2.4 kg). Considering its heavy and powerful components, I don’t think this is a heavy laptop but neither it is a lightweight laptop. You can travel with this occasionally just like the above laptop.
+
+And lastly, the battery life.
+
+You can expect around 2 hours of gaming performance and slightly more than that while doing any general tasks. A longer battery life should have been better considering its price but we can’t expect a good battery life in every gaming laptop.
+
+Pros
+Great performance.
+Excellent display.
+Cons
+Weak battery life.
+Specs Recap:
+Screen Size: 15.6 Inches.
+Storage: 512GB SSD
+RAM: 16GB DDR4 RAM.
+Processor: Intel Core i7-7700HQ.
+Graphics card: Nvidia GTX 1080 8GB.
+Operating System: Windows 10 Home.
+Weight: 5.4 lbs.
+You can watch this Video review by Dave2D to know or read this detailed written review.
+
+Check Price on Amazon
+
+Final words:
+
+After spending quite some I have made this post for those who are looking for the best laptops for deep learning and machine learning in 2018. 
+If you have found the right choice from the above laptops, I would like to hear about. Just shoot your comments below.
+
+
+
+You will not be able to use just a laptop for efficiently training deep neural networks.
+
+However, if you want to train lots of small networks, or do some basic training before deploying your training script on a heavy machine, and are hell bent on buying a laptop for training, I’d suggest you buy a gaming laptop.
+Asus and Acer have good options here. You can run Linux on it like a pro.
+These have decent GPUs, and give you good performance for training small networks.
+This is more convenient than setting up an external GPU on another laptop.
+See this for Macs: Macs are now compatible with Nvidia's Pascal graphics, starting with the Titan Xp
+But then, I don’t think you should invest in a laptop for doing heavy machine learning.
+Build your own customised heavy duty machine. Here is an article I have shared multiple times about this topic: Build a Deep Learning Rig for $800 – Towards Data Science – Medium
+There are various other good articles on Quora and elsewhere about setting up your own machine for doing deep learning.
+I believe that in today’s day and age, when GPUs are being upgraded so often, you don’t want to be left behind because you invested heavily in an older piece of hardware.
+Rent a suitable AWS instance. I have used this and find it one of the easiest services to configure and use.
+Rent a Google Cloud Platform instance. Have used it a little. Personally, I find the configuration and interface of this to be more complicated than than of AWS. But if Google churns out its TPUs (Tensor Processing Units) soon, I suspect that Google Cloud Platform will be the only service to host these devices for some time before other players in the industry can develop similar processors.
+Rent a Microsoft Azure instance. Don’t have experience in this area, so can’t say much.
+You only need a decent/average laptop now. You can develop your models on it, do a mock training on it, and then deploy it on the remote server.
+This is what I myself do to train neural nets. I design them on my MacBook Air, and then train it on an AWS instance. For guidance on how to do this, see this article which I wrote recently: Semantic Segmentation of Urban Street Scenes in Mathematica.
+
+40.4k Views · View Upvoters
+ 
+RecommendedAll
+Amey Tilve
+
+Sponsored by Yekaliva.ai
+
+Unleash the power of chat-bot in less than 10 mins.
+Engage with your customers 24/7 on 12+ social channels. Start now with our free plan.
+Sign up at yekaliva.ai
+ 
+Lucas Shen
+Lucas Shen, Data Engineer. Stay hungry, still foolish.
+Updated Jan 12, 2017
+Microsoft is going alpha with its GPU cloud instance that is way more powerful than AWS offering. [1] Laptop or PC will be irrelevant in this case since they are just terminals to access computation on the cloud.
+
+However, if you insist, a laptop could be good for local experiments with small data. MAC is pretty bad choice because it's GPU usually is not supported by current deep learning framework. system76 offers decent cost performance value and[2]is running Ubuntu.
+
+UPDATE 1/12/2017:
+
+Now AWS and Azure provide high end GPU instances. They have 1, 8, 16 GPUs types.
+
+In my case, the single GPU instance’s performance is really bad because I have Titan X at my home PC already, around 2x-3x faster than single GPU instance, but you don’t want to build a 8 or 16 GPU rack at home.
+
+You will need a fast enough single GPU to do experiments locally for sample data to verify many things before going into full scale.
+
+After experiments, you will need 8 or 16 GPUs instance to finish the job.
+
+So laptop wise I would find the cheapest nvidia gtx 1080 laptop. Forget about fancy monitor or glowing keyboard, all I need is a monitor and 1080. But 1080 in the laptop form factor is still expensive. If you are not that often to be coding deep learning on Bart, train, friends house, starbucks, 1.5k USD is enough to build a decent 1080 pc, which to me is the most cost effective solution. And you know what you will get to buy a 1.5k macbook pro…. For deep learning, 1.5k macbook pro is in the same league with $300 chromebook.
+
+Footnotes
+
+[1] Introduction to NVIDIA GPUs in Azure
+
+[2] System76 - Ubuntu Laptops, Desktops, and Servers
+
+78.8k Views · View Upvoters · View Sharers
+ 
+
+Ad by Quora for Business
+
+A great advertising solution to get high intent leads.
+Quora advertising allows you to influence people in the consideration phase of their purchase process.
+Start now at quora.com
+ 
+Sanskar Jain
+Sanskar Jain, Successfully completed dozens of Major AI and ML Projects.
+Answered Jul 19
+Hey pals,
+ 
+ Today, I'm gonna list all the best laptops and desktops that are perfect for deep learning, training neural networks, running heavy machine learning tasks. In a sense, these computers are designed for Artificial Intelligence. Best for Machine Learning, Best for Programming.
+ 
+ Basic Requirement a system must have for performing AI tasks smoothly ...
+
+CPU : Core i7 at minimum (3.0 GHz or above, at least quad core)
+RAM : 16GB or 32GB
+GPU : nVidia graphics (minimum 3GB or more like 8GB) (like GeForce GTX 1080Ti)
+Auxiliary storage : 512GB SSD and 1TB HDD Hybrid.
+On what grounds I chose these Configuration?
+
+GPU : I chose nVidia over other company's GPU because of the Cuda and CuDNN. These API/Framework allow you to run your heavy tasks like training a network to be run on GPU instead of CPU. These type of AI tasks run more efficiently on GPU's, almost 300% faster. nVidia's GeForce GTX Series is specially designed for Artificial Intelligence enthusiasts. 
+ 
+ RAM : This is the most important thing that you should take under consideration because this is where the magic happens. More RAM means you can load more amount 
+of data into it, more amount of data in RAM means you can execute and process it faster than anything else. High Capacity RAM means you can do multi-tasking easily while your AI Model is in training phase. Hence my recommendation is minimum 16GB RAM. 
+ 
+ CPU : CPU is at the core of everything. Intel Core i7 processor, minimum 7th generation, provides you with the high processing power even at baseline condition and Turbo Boosts that will speed up the things as hell. 
+ 
+ Storage : With the increasing size of datasets/databases, like Imagenet or imdb's dataset, your system must have high storage capacity to store them locally because processing them on a network is such a pain in the ass. 
+ 
+ So, if have survived till here, no need to panic more, because I have found the best Desktops/Laptops out there, that you can buy now, which will satisfies all
+
+
+
+
+
+ 

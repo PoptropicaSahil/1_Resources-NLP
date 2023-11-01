@@ -1,0 +1,3 @@
+https://machinelearningmastery.com/grid-search-hyperparameters-deep-learning-models-python-keras/
+
+https://machinelearningmastery.com/improve-deep-learning-performance/

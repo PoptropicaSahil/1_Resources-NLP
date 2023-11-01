@@ -1,0 +1,88 @@
+https://www.kaggle.com/sbongo/do-pretrained-embeddings-give-you-the-extra-edge
+
+
+Loading existing pretrained embeddings
+
+* There are also pretrained embedding for each of the models avaible and trained on varity of data like
+  Wiki, news article, movie, tweets etc... (search on kaggle)
+
+* For OOV word serach for nearest match of certain threashold to initilaize
+
+Word2Vec can be directly loaded
+(there is direct helper function for it)
+(then we see if this word is in Word2Vec dictionary, if yes, get the corresponding weights)
+
+fastText and Glove cant be
+(so we read each line and store in dict)
+(then we see if this word is in glove's/fatetexts dictionary, if yes, we get the corresponding weights)
+
+We'll create new  embedding matrix that has all the word in our corpous vocabulary
+which is used as embedding layer for neural network
+
+================================================================================================
+
+Word2Vec has trained Embedding stored as .bin
+
+
+Example:
+	GoogleNews-vectors-negative300
+
+##############################################################
+
+
+Word2Vec_Embedding = dict()
+            for word in word2vecDict.wv.vocab:
+                Word2Vec_Embedding [word] = word2vecDict.word_vec(word)
+            print('Loaded %s word vectors.' % lenWord2Vec_Embedding 
+
+
+=================================================================================================
+
+
+GLOVE has trained embedding with stored in file format  .txt 
+
+example:
+	glove.twitter.27B.25d.txt
+	glove.50d.txt	
+	glove.100d.txt
+	glove.300d.txt
+
+
+
+
+Also
+
+FasText has trained embedding with stored in file format  .vec
+
+example:
+	wiki.simple.vec
+	xxxxxxxxxxx.vec
+
+so to load this file as dict
+
+
+following code
+
+###########################################################################################
+
+
+
+
+Glove_FasText_Embedding = dict()
+
+f = open('glove.6B.50d.txt', encoding="utf8")
+
+for line in f:
+	values = line.split() # split by lines
+	word = values[0]# get 1st word in the line i.e the "word" itself
+	coefs = np.asarray(values[1:], dtype='float32') # the preceding vector is the vector itself
+	
+
+Glove_Embedding[word] = coefs# its a dict of word(key) and vector(value)
+f.close()
+
+print('Loaded %s word vectors.' % len(Glove_FasText_Embedding) 
+
+###########################################################################################
+
+

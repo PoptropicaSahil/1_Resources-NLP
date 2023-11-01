@@ -1,0 +1,93 @@
+DRDO cancelled trip id: 
+190204612632
+
+1.
+
+Get reproducable result
+https://machinelearningmastery.com/reproducible-results-neural-networks-keras/
+
+# seed random num generator
+
+//code
+from numpy.random import seed
+seed(1)
+from tensorflow import set_random_seed
+set_random_seed(2)
+
+You can use the same seed for both, or different seeds. 
+I don�t think it makes much difference as the sources of randomness feed into different processes.
+
+What if you have followed the above instructions and still get different results from the same algorithm on the same data?
+# Randomness from a Third-Party Library :  too must be seeded
+# Randomness from Using the GPU : using Nvidia cuDNN "  may introduce additional sources of randomness "
+// https://github.com/fchollet/keras/issues/2479#issuecomment-213987747
+
+
+
+
+COMMENTS
+- I encountered the same problem as Marcel, and after doing research i found out that the problem is in Tensorflow Backend.
+  I switch to theano backend, and i get reproducible results
+
+- Do it in a NEW NOTEBOOK. Not in the same notebook.
+  https://github.com/keras-team/keras/issues/2743 gives some idea.
+
+- https://keras.io/getting-started/faq/#how-can-i-obtain-reproducible-results-using-keras-during-development
+- Jim Goodwin
+
+
+
+2. train / tst / validation split
+
+
+X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.2, random_state=42)
+X_train, X_val, y_train, y_val = train_test_split( X_train, y_train , test_size=0.2, random_state=42)
+
+
+# train test valIDATION SPLIT FOR DEEP
+kaggle
+
+
+How to Create a Random-Split, Cross-Validation, and Bagging Ensemble for Deep Learning in Keras
+
+
+
+
+
+
+3. bidirectional padding stratergy
+- how to mask?? nullify effect of zeros
+
+4. tf hub
+
+5. use version control system
+
+6. ubuntu
+
+7. grid search
+
+8. make code N.N modular
+
+9. keep it ready for deployement
+
+
+-- reproducable
+-- proj name in header (img, tensorboard logs, )
+-- sep images folder
+-- INPUT_TEXT_LENGTH global variable for static kind of work
+-- path to store path_best_model
+-- path to store img / keras weights / etc...
+
+def create_model(learning_rate, num_dense_layers,
+                 num_dense_nodes, activation):
+    """
+    Hyper-parameters:
+    learning_rate:     Learning-rate for the optimizer.
+    num_dense_layers:  Number of dense layers.
+    num_dense_nodes:   Number of nodes in each dense layer.
+    activation:        Activ
+
+
+
+racecar
+malayalam

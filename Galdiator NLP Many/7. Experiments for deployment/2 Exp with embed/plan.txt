@@ -1,0 +1,7 @@
+lstm
+gru
+cnn
+
+all glove
+all word2vec
+all fastext

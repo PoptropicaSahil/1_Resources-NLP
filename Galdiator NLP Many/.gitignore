@@ -1,0 +1,17 @@
+.ipynb_checkpoints/
+__pycache__
+Dataset/
+pickles/
+5. mlMastery/pickles/
+5. mlMastery/logs/
+5. mlMastery/txt_sentoken/
+5. mlMastery/tokenizer_instance/
+5. mlMastery/2_1_tf-idf.h5
+6. Optimization techq/pima-indians-diabetes.csv
+7. Experiments for deployment/1. CV_&_Seeding/pickles
+7. Experiments for deployment/1. CV_&_Seeding/logs
+7. Experiments for deployment/1. CV_&_Seeding/model_tokenizers_weights_and_json
+7. Experiments for deployment/2 Exp with embed/logs
+7. Experiments for deployment/2 Exp with embed/logs,1.1 Vector LOCAL Glove 50dims TF-iDF
+9. BERT/BERT
+10. LDA/news_df.pkl
