@@ -54,6 +54,7 @@ def estimate_loss():
 
 model = BigramLanguageModel()
 m = model.to(device)
+# is there a need to assign it to a variable? NO! But we access m.generate in the last line
 # print the number of parameters in the model
 script_run_logger.info(f"{sum(p.numel() for p in m.parameters()) / 1e6}, M parameters")
 
@@ -69,7 +70,8 @@ for iter in range(max_iters):
         )
 
     # sample a batch of data
-    xb, yb = get_batch("train")
+    xb, yb = get_batch("train")  # 16*32, 16*32
+    # var_chk_logger.debug(f"xb = {xb} shape = {xb.shape}, yb = {yb} shape = {xb.shape}")
 
     # evaluate the loss
     logits, loss = model(xb, yb)

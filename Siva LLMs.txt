@@ -1,3 +1,14 @@
-Siva LLMs
+**Siva LLMs**
 
 - KV Caching in llms (in Attention)
+    If Causal masking is not applied, KV Caching is not possible
+
+- Rotory embds perform multiplication instead of adding
+    Rotation matrix is used
+    multiplication in complex plane == addition of angles
+    RoPE is used in most of the LLMs
+- Relative positional embeddigs are in T5 models and it is not efficient
+
+
+GPU are fast in caluclation and parallel work
+but slow in memory and transfer from GPU to CPU

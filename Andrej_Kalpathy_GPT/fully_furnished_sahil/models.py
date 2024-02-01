@@ -31,6 +31,8 @@ script_run_logger.info("read config variables in models file")
 #     f"n_embd = {n_embd}, n_head = {n_head}, n_layer = {n_layer}, block_size = {block_size}"
 # )
 
+var_chk_logger.info(f"vocab size = {vocab_size}")
+
 
 class Head(nn.Module):
     """one head of self-attention"""
@@ -41,19 +43,29 @@ class Head(nn.Module):
         self.query = nn.Linear(n_embd, head_size, bias=False)
         self.value = nn.Linear(n_embd, head_size, bias=False)
         self.register_buffer("tril", torch.tril(torch.ones((block_size, block_size))))
+        # block size is same is T only
         self.dropout = nn.Dropout(dropout)
 
     def forward(self, x):
         # var_chk_logger.debug(f"input is x = {x},  shape = {x.shape}")
         B, T, C = x.shape
-        k = self.key(x)  # (B,T,C)
-        q = self.query(x)  # (B,T,C)
+        k = self.key(x)  # (B,T,head_size) # correction
+        q = self.query(x)  # B,T,head_size) # correction
+        # var_chk_logger.debug(
+        #     f"input is x shape = {x.shape}, k shape = {k.shape}, q shape = {q.shape}"
+        # )
 
         # compute attention scores ("affinities")
-        wei = q @ k.transpose(-2, -1) * C**-0.5  # (B, T, C) @ (B, C, T) -> (B, T, T)
+        wei = q @ k.transpose(-2, -1) * C**-0.5
+        # (B, T, head_size) @ (B, head_size, T) -> (B, T, T) # Correction
+
         # var_chk_logger.debug(f"wei as matrix mul = {wei}")
         # var_chk_logger.debug(f"self.tril[:T, :T] == 0 is {self.tril[:T, :T] == 0}")
+
+        # both lines are the same only if block_size = T
         wei = wei.masked_fill(self.tril[:T, :T] == 0, float("-inf"))  # (B, T, T)
+        # wei = wei.masked_fill(self.tril == 0, float("-inf")) #
+
         wei = F.softmax(wei, dim=-1)  # (B, T, T)
         wei = self.dropout(wei)
         # perform the weighted aggregation of the values
@@ -68,7 +80,7 @@ class MultiHeadAttention(nn.Module):
     """multiple heads of self-attention in parallel"""
 
     def __init__(self, num_heads, head_size):
-        var_chk_logger.debug(f"num_heads = {num_heads}, head_size = {head_size}")
+        # var_chk_logger.debug(f"num_heads = {num_heads}, head_size = {head_size}")
         super().__init__()
         self.heads = nn.ModuleList([Head(head_size) for _ in range(num_heads)])
         # var_chk_logger.debug(f"self.heads = {self.heads}")
@@ -153,6 +165,7 @@ class BigramLanguageModel(nn.Module):
         # idx and targets are both (B,T) tensor of integers
         tok_emb = self.token_embedding_table(idx)  # (B,T,C)
         pos_emb = self.position_embedding_table(torch.arange(T, device=device))  # (T,C)
+
         # var_chk_logger.debug(
         #     f"tok_emb shape = {tok_emb.shape}, pos_emb shape = {pos_emb.shape}"
         # )
