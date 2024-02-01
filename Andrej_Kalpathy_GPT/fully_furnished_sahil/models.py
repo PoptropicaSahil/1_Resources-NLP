@@ -6,6 +6,8 @@ from config import get_device
 from data_loader import vocab_size
 from torch.nn import functional as F
 
+from log_config import script_run_logger, var_chk_logger
+
 # hyperparameters
 with open("config.json", "r") as f:
     config = json.load(f)
@@ -24,6 +26,11 @@ n_layer = config["n_layer"]
 dropout = config["dropout"]
 device = get_device()
 
+script_run_logger.info("read config variables in models file")
+# var_chk_logger.debug(
+#     f"n_embd = {n_embd}, n_head = {n_head}, n_layer = {n_layer}, block_size = {block_size}"
+# )
+
 
 class Head(nn.Module):
     """one head of self-attention"""
@@ -34,21 +41,26 @@ class Head(nn.Module):
         self.query = nn.Linear(n_embd, head_size, bias=False)
         self.value = nn.Linear(n_embd, head_size, bias=False)
         self.register_buffer("tril", torch.tril(torch.ones((block_size, block_size))))
-
         self.dropout = nn.Dropout(dropout)
 
     def forward(self, x):
+        # var_chk_logger.debug(f"input is x = {x},  shape = {x.shape}")
         B, T, C = x.shape
         k = self.key(x)  # (B,T,C)
         q = self.query(x)  # (B,T,C)
+
         # compute attention scores ("affinities")
         wei = q @ k.transpose(-2, -1) * C**-0.5  # (B, T, C) @ (B, C, T) -> (B, T, T)
+        # var_chk_logger.debug(f"wei as matrix mul = {wei}")
+        # var_chk_logger.debug(f"self.tril[:T, :T] == 0 is {self.tril[:T, :T] == 0}")
         wei = wei.masked_fill(self.tril[:T, :T] == 0, float("-inf"))  # (B, T, T)
         wei = F.softmax(wei, dim=-1)  # (B, T, T)
         wei = self.dropout(wei)
         # perform the weighted aggregation of the values
         v = self.value(x)  # (B,T,C)
         out = wei @ v  # (B, T, T) @ (B, T, C) -> (B, T, C)
+        # var_chk_logger.debug(f"matrix multiplication done out shape = {out.shape}")
+
         return out
 
 
@@ -56,19 +68,34 @@ class MultiHeadAttention(nn.Module):
     """multiple heads of self-attention in parallel"""
 
     def __init__(self, num_heads, head_size):
+        var_chk_logger.debug(f"num_heads = {num_heads}, head_size = {head_size}")
         super().__init__()
         self.heads = nn.ModuleList([Head(head_size) for _ in range(num_heads)])
+        # var_chk_logger.debug(f"self.heads = {self.heads}")
+
         self.proj = nn.Linear(n_embd, n_embd)
         self.dropout = nn.Dropout(dropout)
 
     def forward(self, x):
+        # var_chk_logger.debug(f"input is x = {x},  shape = {x.shape}")
         out = torch.cat([h(x) for h in self.heads], dim=-1)
+        # var_chk_logger.debug(
+        #     f"output from all heads concat is out = {out},  shape = {out.shape}"
+        # )
+
         out = self.dropout(self.proj(out))
+        # var_chk_logger.debug(
+        #     f"output from projection layer is out = {out},  shape = {out.shape}"
+        # )
+
         return out
 
 
 class FeedFoward(nn.Module):
-    """a simple linear layer followed by a non-linearity"""
+    """
+    a simple linear layer followed by a non-linearity
+    making the linear layer go till 4*n_embd  is just by convention
+    """
 
     def __init__(self, n_embd):
         super().__init__()
@@ -96,7 +123,13 @@ class Block(nn.Module):
         self.ln2 = nn.LayerNorm(n_embd)
 
     def forward(self, x):
+        # var_chk_logger.debug(
+        #     f"input to transformer block is x = {x},  shape = {x.shape}"
+        # )
+
+        # first layer normalization then self attention
         x = x + self.sa(self.ln1(x))
+        # var_chk_logger.debug(f"input to ffwd block is x = {x},  shape = {x.shape}")
         x = x + self.ffwd(self.ln2(x))
         return x
 
@@ -120,6 +153,9 @@ class BigramLanguageModel(nn.Module):
         # idx and targets are both (B,T) tensor of integers
         tok_emb = self.token_embedding_table(idx)  # (B,T,C)
         pos_emb = self.position_embedding_table(torch.arange(T, device=device))  # (T,C)
+        # var_chk_logger.debug(
+        #     f"tok_emb shape = {tok_emb.shape}, pos_emb shape = {pos_emb.shape}"
+        # )
         x = tok_emb + pos_emb  # (B,T,C)
         x = self.blocks(x)  # (B,T,C)
         x = self.ln_f(x)  # (B,T,C)

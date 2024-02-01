@@ -3,15 +3,20 @@ import json
 import torch
 from config import get_device
 from data_loader import decode, get_batch
+
+from log_config import script_run_logger, var_chk_logger
 from models import BigramLanguageModel
+
+var_chk_logger.debug("start of script real good")
+script_run_logger.info("This is yoyoyoyo message")
+var_chk_logger.info("This is a model training message")
+
 
 # hyperparameters
 with open("config.json", "r") as f:
     config = json.load(f)
 
-batch_size = config[
-    "batch_size"
-]  # how many independent sequences will we process in parallel?
+batch_size = config["batch_size"]  # num independent sequences processed in parallel?
 block_size = config["block_size"]  # what is the maximum context length for predictions?
 max_iters = config["max_iters"]
 eval_interval = config["eval_interval"]
@@ -25,9 +30,15 @@ max_new_tokens = config["max_new_tokens"]
 device = get_device()
 # ------------
 
+script_run_logger.info("read the input config values")
+
 
 @torch.no_grad()
 def estimate_loss():
+    """
+    Estimate the loss of the model for train and validation splits and return the average loss for each split.
+    This function does not take any parameters and returns a dictionary containing the average loss for the train and validation splits.
+    """
     out = {}
     model.eval()
     for split in ["train", "val"]:
@@ -44,7 +55,7 @@ def estimate_loss():
 model = BigramLanguageModel()
 m = model.to(device)
 # print the number of parameters in the model
-print(sum(p.numel() for p in m.parameters()) / 1e6, "M parameters")
+script_run_logger.info(f"{sum(p.numel() for p in m.parameters()) / 1e6}, M parameters")
 
 # create a PyTorch optimizer
 optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate)
@@ -53,7 +64,7 @@ for iter in range(max_iters):
     # every once in a while evaluate the loss on train and val sets
     if iter % eval_interval == 0 or iter == max_iters - 1:
         losses = estimate_loss()
-        print(
+        script_run_logger.info(
             f"step {iter}: train loss {losses['train']:.4f}, val loss {losses['val']:.4f}"
         )
 
