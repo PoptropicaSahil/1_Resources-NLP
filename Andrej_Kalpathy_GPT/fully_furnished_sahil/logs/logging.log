@@ -1,0 +1,13 @@
+2024-02-01 23:52:21,195 - script_runner - INFO - running the config py file
+2024-02-01 23:52:22,262 - script_runner - INFO - read config variables in models file
+2024-02-01 23:52:22,262 - variable_checker - INFO - vocab size = 65
+2024-02-01 23:52:22,262 - variable_checker - DEBUG - start of script real good
+2024-02-01 23:52:22,262 - script_runner - INFO - This is yoyoyoyo message
+2024-02-01 23:52:22,262 - variable_checker - INFO - This is a model training message
+2024-02-01 23:52:22,262 - script_runner - INFO - read the input config values
+2024-02-01 23:52:22,293 - script_runner - INFO - 0.209729, M parameters
+2024-02-01 23:52:28,492 - script_runner - INFO - step 0: train loss 4.4116, val loss 4.4022
+2024-02-01 23:52:39,719 - script_runner - INFO - step 100: train loss 2.6568, val loss 2.6670
+2024-02-01 23:52:50,970 - script_runner - INFO - step 200: train loss 2.5090, val loss 2.5059
+2024-02-01 23:53:01,980 - script_runner - INFO - step 300: train loss 2.4192, val loss 2.4334
+2024-02-01 23:53:12,807 - script_runner - INFO - step 400: train loss 2.3499, val loss 2.3563
