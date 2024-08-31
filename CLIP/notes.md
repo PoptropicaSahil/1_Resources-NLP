@@ -1,4 +1,5 @@
 ## CLIP
+- Contrastive Language-Image Pretraining
 - trained on 400 mn image-text pairs
 - compare to 1.4 mn pairs used for resnet
 

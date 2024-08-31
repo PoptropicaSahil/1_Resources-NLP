@@ -1,0 +1,29 @@
+**Gyaan**
+Talk of Central Limit Theorem wrt Diffusion models and how the quality degrades. 
+These models usually form a latent space out of all info, then sample from it. With so much of the internet filled with content made from these models, the 'sample space' for newer models consists of this artificially generated data, which is less in diversity!
+
+Reasoning: CLT! Initially the original space was diverse and wide. CLT --> Distribution of SAMPLE means will be normally distributed i.e. around 0. So new data is more narrowly distributed, and getting more similar.
+Sampling from here i.e. newer models will give even narrower results --> worse!
+
+
+
+
+New research to beat attention
+* Mamba S6 model -- linear time for attention, instead of quadratic
+* Sparse Attention
+* Mixtral has a few techniques: Rolling buffer (KV) Cache, prefilling, chunking, sliding-window attention
+* Switch transformer
+* Grouped Query Attention (GQA) as in LLaMA
+
+* Model sharding
+* Pipeline parallelism
+* Gradient accummulation
+
+
+Heirarchy
+* Full Attention : with Q, K, V
+* KV Cache : Only last attention score is required: Not do repeated calculation
+* Sliding Window Attention: Don't need the full attention as well, only closeby attention needed - other info captured by the "receptive field" property
+* Rolling Buffer Cache: Limit to a buffer size W in the KV cache
+* Prefilling cache: Build the cache for prompt inputs beforehand,
+* If prompt is very big, we chunk the prompt and prefill the cache
