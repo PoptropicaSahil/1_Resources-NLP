@@ -10,7 +10,7 @@ Sampling from here i.e. newer models will give even narrower results --> worse!
 
 New research to beat attention
 * Mamba S6 model -- linear time for attention, instead of quadratic
-* Sparse Attention
+* Sparse Attention, Flash Attention, Flash Attention2, Paged Attention (vLLM - 24x faster)
 * Mixtral has a few techniques: Rolling buffer (KV) Cache, prefilling, chunking, sliding-window attention
 * Switch transformer
 * Grouped Query Attention (GQA) as in LLaMA
@@ -18,6 +18,11 @@ New research to beat attention
 * Model sharding
 * Pipeline parallelism
 * Gradient accummulation
+
+Decoding: 
+* Speculative (assistive) decoding, pass in an assistant model
+* n-grams lookup from prompt (2-4x speedup)
+* llm.int8
 
 
 Heirarchy
