@@ -25,7 +25,7 @@ Decoding:
 * llm.int8
 
 
-Heirarchy
+Heirarchy (kissan jam preservatives analogy xD )
 * Full Attention : with Q, K, V
 * KV Cache : Only last attention score is required: Not do repeated calculation
 * Sliding Window Attention: Don't need the full attention as well, only closeby attention needed - other info captured by the "receptive field" property
