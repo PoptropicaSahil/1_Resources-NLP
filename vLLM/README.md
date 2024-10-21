@@ -350,14 +350,59 @@ elif distributed_executor_backend == "mp":
     from vllm.executor.multiproc_gpu_executor import MultiprocessingGPUExecutor # MultiprocessingGPUExecutor
 ```
 
-
-
 ### Scheduling the runs
 
 The init method of the engine itself sets the `self.scheduler = [Scheduler(...) for _ in range(parallel_size)]`. Information about the scheduler is present at `vllm/core/scheduler.py`. 
 
 There are a bunch of functions that handle operations like **prefilling**, swapping, aborting, 
 ![alt text](<readme-images/Screenshot 2024-10-18 104851.png>)
+
+
+## Attention
+This was slightly unexpected. This vLLM team actually supports FlashAttention. The methods to get shapes of KV cache, swapping data to corresponding memory - all of it is written well
+- **FlashAttention**
+    Located at `vllm/attention/backends/flash_attn.py`
+    Class: 
+    ```python
+    class FlashAttentionImpl(AttentionImpl)
+    ```
+- **BlockSparseAttention**
+    Located at `vllm/attention/backends/blocksparse_attn.py`
+    Class: 
+    ```python
+    class BlocksparseFlashAttentionImpl(AttentionImpl)
+    ```
+
+
+## The utils
+Found some very creative ways to keep the utils. A lot of flags grouped together. 
+```python
+# Efficiently import all enc/dec error strings
+# rather than having to import all of the above
+STR_NOT_IMPL_ENC_DEC_ERR_STRS = {
+    "STR_NOT_IMPL_ENC_DEC_SWA": STR_NOT_IMPL_ENC_DEC_SWA,
+    "STR_NOT_IMPL_ENC_DEC_PREFIX_CACHE": STR_NOT_IMPL_ENC_DEC_PREFIX_CACHE,
+    "STR_NOT_IMPL_ENC_DEC_CHUNKED_PREFILL":
+    STR_NOT_IMPL_ENC_DEC_CHUNKED_PREFILL,
+    "STR_NOT_IMPL_ENC_DEC_LOGIT_SOFTCAP": STR_NOT_IMPL_ENC_DEC_LOGIT_SOFTCAP,
+    "STR_NOT_IMPL_ENC_DEC_LORA": STR_NOT_IMPL_ENC_DEC_LORA,
+    "STR_NOT_IMPL_ENC_DEC_PP": STR_NOT_IMPL_ENC_DEC_PP,
+    "STR_NOT_IMPL_ENC_DEC_MM": STR_NOT_IMPL_ENC_DEC_MM,
+    "STR_NOT_IMPL_ENC_DEC_SPEC_DEC": STR_NOT_IMPL_ENC_DEC_SPEC_DEC,
+    "STR_NOT_IMPL_ENC_DEC_BACKEND": STR_NOT_IMPL_ENC_DEC_BACKEND,
+    "STR_NOT_IMPL_ENC_DEC_PROMPT_ADAPTER": STR_NOT_IMPL_ENC_DEC_PROMPT_ADAPTER,
+    "STR_NOT_IMPL_ENC_DEC_CPU": STR_NOT_IMPL_ENC_DEC_CPU
+}
+```
+
+- Never knew that the function to deprecate kwargs is also a part of utils. \\
+
+- An intersting class that I feel I should incorportate in my projects - 
+```python
+class FlexibleArgumentParser(argparse.ArgumentParser):
+    """ArgumentParser that allows both underscore and dash in names."""
+```
+
 
 
 # TODO
@@ -367,7 +412,12 @@ There are a bunch of functions that handle operations like **prefilling**, swapp
 ![alt text](<readme-images/Screenshot 2024-10-18 130107.png>)
 ![alt text](<readme-images/Screenshot 2024-10-18 110819.png>)
 
+
+
 ## **2. Check more into code for chunked prefilling**
+![alt text](<readme-images/Screenshot 2024-10-18 103816.png>)
+The logic of continuous batching was first introduced in the Orca paper (2022) [link](https://www.usenix.org/conference/osdi22/presentation/yu). Orca implements **iteration-level scheduling** where the batch size is determined per iteration [ref](https://www.anyscale.com/blog/continuous-batching-llm-inference)
+
 
 ## **3. RUN and test if there is a possibility of different outputs from the same model - vLLM and not vLLM. Should use logical-reasoning based queries instead of factual ones**
 - Currently pytorch v2.2 and above is not supported. Runs with v2.1.2 should be fine.
@@ -375,7 +425,12 @@ There are a bunch of functions that handle operations like **prefilling**, swapp
 
 
 ## **4. Distributed running**
-- The parallel runs are heavily use Pytorch's distributed modules. 
+- The parallel runs heavily use Pytorch's distributed modules. Located at `vllm/distributed/parallel_state.py`. Interestingly, the script starts off saying -
+```python
+# Adapted from
+# https://github.com/NVIDIA/Megatron-LM/blob/main/megatron/core/parallel_state.py
+# Copyright (c) 2022, NVIDIA CORPORATION. All rights reserved.
+``` 
 
 
 ## **5. API servers**
@@ -383,8 +438,9 @@ There are a bunch of functions that handle operations like **prefilling**, swapp
 
 
 
-# **(EXTRA)** How vLLM compares with other inference engines ([source](https://www.bentoml.com/blog/benchmarking-llm-inference-backends))
+# **(EXTRA)** How vLLM compares with other inference engines ([source1](https://www.bentoml.com/blog/benchmarking-llm-inference-backends), [source2](https://github.com/InternLM/lmdeploy))
 
+![alt text](readme-images/lm-deploy.png)
 ![alt text](readme-images/comparision.png)
 
 
@@ -393,12 +449,9 @@ There are a bunch of functions that handle operations like **prefilling**, swapp
 
 - vLLM consistently maintains a low TTFT, even as user loads increase, making it suitable for scenarios where maintaining low latency is crucial. vLLM offers easy integration, extensive model support, and broad hardware compatibility, all backed by a robust open-source community.
 
-- MLC-LLM offers the lowest TTFT and maintains high decoding speeds at lower concurrent users. However, under very high user loads, MLC-LLM struggles to maintain top-tier decoding performance. Despite these challenges, MLC-LLM shows significant potential with its machine learning compilation technology. Addressing these performance issues and implementing a stable release could greatly enhance its effectiveness.
 
 ### Llama 3 70B 4-bit quantization
 - For the Llama 3 70B Q4 model, **LMDeploy** demonstrates impressive performance with the lowest TTFT across all user loads. It also maintains a high decoding speed, making it ideal for applications where both low latency and high throughput are essential. LMDeploy also stands out for its ease of use, as it can quickly convert models without the need for extensive setup or compilation, making it ideal for rapid deployment scenarios.
-
-- TensorRT-LLM matches LMDeploy in throughput, yet it exhibits less optimal latency for TTFT under high user load scenarios. Backed by Nvidia, we anticipate these gaps will be quickly addressed. However, its inherent requirement for model compilation and reliance on Nvidia CUDA GPUs are intentional design choices that may pose limitations during deployment.
 
 - vLLM manages to maintain a low TTFT even as user loads increase, and its ease of use can be a significant advantage for many users. However, at the time of writing, the **backend's lack of optimization for AWQ quantization leads to less than optimal decoding performance for quantized models.**
 
