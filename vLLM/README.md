@@ -14,6 +14,7 @@ The `spec_decode` directory has the draft workers:
 
 - **MedusaWorker**  
     Located at: `vllm/spec_decode/medusa_worker.py`  
+    Medusa is a simple framework that democratizes the acceleration techniques for LLM generation with multiple decoding heads ([source](https://github.com/FasterDecoding/Medusa#introduction)) \
     Class:  
     ```python
     class MedusaWorker
@@ -26,6 +27,7 @@ The `spec_decode` directory has the draft workers:
     class NGramWorker
     ```
     Provides a light drafter without the need for a model. The current `NGramWorker` **only implements prompt lookup decoding**.
+    ![alt text](<readme-images/Screenshot 2024-10-18 132804.png>)
 
 It also houses the target worker:
 
@@ -230,7 +232,7 @@ if tokenizer_mode == "mistral":
 ### Request Handling
 The (overloaded) `add_request` method takes care of adding a request to the engine’s queue. It processes input prompts and parameters, then creates a `SequenceGroup` which contains all sequences of token generation.
 
-> The addition of request to the queue is not strightforward though. There are multiple intermediate methods that are invoked such as `input_processor` -> `_add_processed_request` -> `_validate_model_inputs` -> `_create_sequence_group_with_sampling` -> `_build_logits_processors` -> return a `SequenceGroup`
+> The addition of request to the queue is not straightforward though. There are multiple intermediate methods that are invoked such as `input_processor` -> `_add_processed_request` -> `_validate_model_inputs` -> `_create_sequence_group_with_sampling` -> `_build_logits_processors` -> return a `SequenceGroup`
 
 
 
@@ -318,13 +320,14 @@ while True:
 ![alt text](<readme-images/Screenshot 2024-10-18 100830.png>)
 The `_initialize_kv_caches` method sets up GPU and CPU blocks for the cache. The method it calls, in turn, nicely takes in the GPU and CPU blocks as input :)
 
-
 ```python
 self.model_executor.initialize_cache(num_gpu_blocks, num_cpu_blocks)
 ```
 
-The team has wrote a method `determine_num_available_blocks()` to get the number of GPU and CPU blocks automatically. This method is heavily used throughout the repo - mostly when a executor is called . 
+The team has wrote a method `determine_num_available_blocks()` to get the number of GPU and CPU blocks automatically. This method is heavily used throughout the repo - mostly when a executor is called . \\
 
+Analogously, this super-efficient memory management leads to very less memory being wasted. The image below is from the paper itself.
+![alt text](readme-images/memory-waste.png)
 
 
 ### Running on (multiple) GPUs/TPUs/Clusters!
@@ -351,27 +354,10 @@ elif distributed_executor_backend == "mp":
 ```
 
 ### Scheduling the runs
-
 The init method of the engine itself sets the `self.scheduler = [Scheduler(...) for _ in range(parallel_size)]`. Information about the scheduler is present at `vllm/core/scheduler.py`. 
 
 There are a bunch of functions that handle operations like **prefilling**, swapping, aborting, 
 ![alt text](<readme-images/Screenshot 2024-10-18 104851.png>)
-
-
-## Attention
-This was slightly unexpected. This vLLM team actually supports FlashAttention. The methods to get shapes of KV cache, swapping data to corresponding memory - all of it is written well
-- **FlashAttention**
-    Located at `vllm/attention/backends/flash_attn.py`
-    Class: 
-    ```python
-    class FlashAttentionImpl(AttentionImpl)
-    ```
-- **BlockSparseAttention**
-    Located at `vllm/attention/backends/blocksparse_attn.py`
-    Class: 
-    ```python
-    class BlocksparseFlashAttentionImpl(AttentionImpl)
-    ```
 
 
 ## The utils
@@ -395,19 +381,34 @@ STR_NOT_IMPL_ENC_DEC_ERR_STRS = {
 }
 ```
 
-- Never knew that the function to deprecate kwargs is also a part of utils. \\
+- Never knew that the function to deprecate kwargs is also a part of utils. 
 
-- An intersting class that I feel I should incorportate in my projects - 
+- An intersting class that I feel I should incorporate in my projects - 
 ```python
 class FlexibleArgumentParser(argparse.ArgumentParser):
     """ArgumentParser that allows both underscore and dash in names."""
 ```
 
+## Attention
+This was slightly unexpected. This vLLM team actually supports FlashAttention. The methods to get shapes of KV cache, swapping data to corresponding memory - all of it is written well
+- **FlashAttention**
+    Located at `vllm/attention/backends/flash_attn.py`
+    Class: 
+    ```python
+    class FlashAttentionImpl(AttentionImpl)
+    ```
+- **BlockSparseAttention**
+    Located at `vllm/attention/backends/blocksparse_attn.py`
+    Class: 
+    ```python
+    class BlocksparseFlashAttentionImpl(AttentionImpl)
+    ```
+
 
 
 # TODO
 
-## **1. Check deeper into code of speculative decoding**
+## **1. Check deeper into code of speculative decoding and scheduling**
 ![alt text](<readme-images/Screenshot 2024-10-18 125227.png>)
 ![alt text](<readme-images/Screenshot 2024-10-18 130107.png>)
 ![alt text](<readme-images/Screenshot 2024-10-18 110819.png>)
@@ -417,6 +418,13 @@ class FlexibleArgumentParser(argparse.ArgumentParser):
 ## **2. Check more into code for chunked prefilling**
 ![alt text](<readme-images/Screenshot 2024-10-18 103816.png>)
 The logic of continuous batching was first introduced in the Orca paper (2022) [link](https://www.usenix.org/conference/osdi22/presentation/yu). Orca implements **iteration-level scheduling** where the batch size is determined per iteration [ref](https://www.anyscale.com/blog/continuous-batching-llm-inference)
+
+
+This section from the vLLM official blog also tells about how GPUs have become too fast and memory transfers is an issue - 
+> Specifically, our profiling results show that for Llama 3 8B running on 1 H100 GPU:
+> - The HTTP API server takes 33% of the total execution time.
+> - 29% of the total execution time is spent on scheduling, including gathering the LLM results from the last step, scheduling the requests to run for the next step, and preparing these requests as inputs for the LLMs.
+> - Finally, **only 38% of the time was spent on the actual GPU execution** for LLMs.
 
 
 ## **3. RUN and test if there is a possibility of different outputs from the same model - vLLM and not vLLM. Should use logical-reasoning based queries instead of factual ones**
