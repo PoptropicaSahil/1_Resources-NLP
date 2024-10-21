@@ -104,7 +104,7 @@ def _verify_args(self) -> None
 ```
 
 
-> **NOTE:** Got a question about `@property`, `@cached_property` decorator – and its differences from the `@staticmethod` decorator. After all, the `@property` decorator allows you to define methods in a class that can be accessed like attributes – method can be accessed without parantheses. `@cached_property` is similar but the results are cached.  But then saw that ~@staticmethod~ does not have access to the instance (`self` param), while `@property` has. 
+> **NOTE:** Got a question about `@property`, `@cached_property` decorator – and its differences from the `@staticmethod` decorator. After all, the `@property` decorator allows you to define methods in a class that can be accessed like attributes – method can be accessed without parantheses. `@cached_property` is similar but the results are cached.  But then saw that `@staticmethod` does not have access to the instance (`self` param), while `@property` has. 
 
 Example:
 ```python
@@ -380,3 +380,26 @@ There are a bunch of functions that handle operations like **prefilling**, swapp
 
 ## **5. API servers**
 - vLLM says they "vLLM can be deployed as a server that implements the OpenAI API protocol". If required, can check on this too
+
+
+
+# **(EXTRA)** How vLLM compares with other inference engines ([source](https://www.bentoml.com/blog/benchmarking-llm-inference-backends))
+
+![alt text](readme-images/comparision.png)
+
+
+### Llama 3 8B
+- For the Llama 3 8B model, **LMDeploy consistently delivers low TTFT and the highest decoding speed across all user loads.** Its ease of use is another significant advantage, as it can convert the model into TurboMind engine format on the fly, simplifying the deployment process. At the time of writing, LMDeploy offers limited support for models that utilize sliding window attention mechanisms, such as Mistral and Qwen 1.5.
+
+- vLLM consistently maintains a low TTFT, even as user loads increase, making it suitable for scenarios where maintaining low latency is crucial. vLLM offers easy integration, extensive model support, and broad hardware compatibility, all backed by a robust open-source community.
+
+- MLC-LLM offers the lowest TTFT and maintains high decoding speeds at lower concurrent users. However, under very high user loads, MLC-LLM struggles to maintain top-tier decoding performance. Despite these challenges, MLC-LLM shows significant potential with its machine learning compilation technology. Addressing these performance issues and implementing a stable release could greatly enhance its effectiveness.
+
+### Llama 3 70B 4-bit quantization
+- For the Llama 3 70B Q4 model, **LMDeploy** demonstrates impressive performance with the lowest TTFT across all user loads. It also maintains a high decoding speed, making it ideal for applications where both low latency and high throughput are essential. LMDeploy also stands out for its ease of use, as it can quickly convert models without the need for extensive setup or compilation, making it ideal for rapid deployment scenarios.
+
+- TensorRT-LLM matches LMDeploy in throughput, yet it exhibits less optimal latency for TTFT under high user load scenarios. Backed by Nvidia, we anticipate these gaps will be quickly addressed. However, its inherent requirement for model compilation and reliance on Nvidia CUDA GPUs are intentional design choices that may pose limitations during deployment.
+
+- vLLM manages to maintain a low TTFT even as user loads increase, and its ease of use can be a significant advantage for many users. However, at the time of writing, the **backend's lack of optimization for AWQ quantization leads to less than optimal decoding performance for quantized models.**
+
+> **NOTE:** [This page](https://huggingface.co/collections/neuralmagic/fp8-llms-for-vllm-666742ed2b78b7ac8df13127) lists out pre-quantized models that are supported by vLLM
