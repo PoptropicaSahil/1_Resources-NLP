@@ -4,7 +4,7 @@
 
 <img src="image.png" alt="drawing" width="700"/>
 
-- rank 1 matrices are not full precision ofc
+- rank 1 matrices are not full precision ofc \
 <img src="image-1.png" alt="drawing" width="700"/>
 
 
@@ -19,3 +19,6 @@ idea is that hopefully we chose an'r' such that we reduce the W matrix to its lo
 
 
 **IMP TO NOTE**: downstream tasks are intrinsically low rank
+
+**WHY DOES IT WORK** \
+<img src="Screenshot 2024-10-01 101845.png" alt="drawing" width="700"/>

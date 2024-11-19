@@ -1,0 +1,1 @@
+Check the folder Transformers-BERT-Notes for detailed working of ColBERT

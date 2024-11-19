@@ -50,3 +50,8 @@
 
 - actually implemented in two steps instead of big matrix multiplication
 <img src="image-9.png" alt="drawing" width="700"/>
+
+
+### More Info
+<img src="Screenshot 2024-08-27 184205.jpg" alt="drawing" width="700"/>
+<img src="Screenshot 2024-08-31 161024.jpg" alt="drawing" width="700"/>
