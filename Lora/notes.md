@@ -18,7 +18,12 @@ idea is that hopefully we chose an'r' such that we reduce the W matrix to its lo
 <img src="image-2.png" alt="drawing" width="700"/>
 
 
-**IMP TO NOTE**: downstream tasks are intrinsically low rank
+**IMP TO NOTE FROM THE PAPER: downstream tasks are intrinsically low rank**
 
 **WHY DOES IT WORK** \
 <img src="Screenshot 2024-10-01 101845.png" alt="drawing" width="700"/>
+
+
+LoRA can even outperform full finetuning training only 2% of the parameters
+
+<img src="image-4.png" alt="drawing" width="1000"/>
