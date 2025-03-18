@@ -118,3 +118,52 @@ HuggingFace has a nice [blog](https://huggingface.co/docs/smolagents/en/tutorial
 - **Measure Everything**: You can’t improve what you don’t measure
 - **Test Thoroughly**: Include edge cases and error scenarios
 - **Document Decisions**: Keep track of why each feature exists
+
+
+---
+
+## Multi Agent
+
+When building multi-agent systems, we want seamless transitions between agents based on the task requirements. The naive approach would be manual handoffs, but we can make this smarter.
+
+**Instead of manually switching agents, we can create a handoff mechanism where agents decide themselves when to transfer control**
+
+
+-----------------------
+## Popular Agentic systems
+
+
+The above is all the knowledge you require to build more complex agentic systems, let’s explore a few of them. Solely using what we have learned so far.
+
+Langgraph has a nice list of agentic systems in my opinion, you can check them out [here](https://langchain-ai.github.io/langgraph/tutorials/#multi-agent-systems).
+
+### ReAct
+
+![Image of super special artist](https://goyalpramod.github.io/assets/blog_assets/ai_agents/4.webp)
+
+> Image taken from the [ReAct paper](https://arxiv.org/abs/2210.03629)
+
+
+---
+
+### Agentic RAG
+
+![Image of super special artist](https://goyalpramod.github.io/assets/blog_assets/ai_agents/3.webp)
+
+> Image taken from langgraph [docs](https://langchain-ai.github.io/langgraph/tutorials/rag/langgraph_agentic_rag/)
+
+
+---
+
+### Supervisor + Workers
+
+![Image of super special artist](https://goyalpramod.github.io/assets/blog_assets/ai_agents/2.webp)
+
+> Image taken from langgraph [docs](https://langchain-ai.github.io/langgraph/tutorials/multi_agent/agent_supervisor/)
+
+---
+
+## References
+
+- As given by the author
+
