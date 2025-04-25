@@ -69,12 +69,17 @@ Simple router implementation. As described above, this routing mechanism is actu
 > Despite its simplicity, this routing mechanism is effective and serves its purpose well. **Most modern MoEs adopt a similar linear routing scheme with softmax.**
 
 
+## Noise in Experts
+Optionally, we can **add (learnable) noise into the routing mechanism to regularize** the MoE’s training process.
+
+<img src="readme-images/noise-router.png" alt="drawing" width="700"/>
+
+> Because we only select a subset of experts to process each token within an MoE layer, there is a concept of **active parameters** in the MoE literature
 
 
+## Expert Capacity
 
-
-
-
+> "To improve hardware utilization, most implementations of sparse models have static batch sizes for each expert. The **expert capacity refers to the number of tokens that can be routed to each expert.** *If this capacity is exceeded then the overflowed tokens are passed to the next layer through a residual connection.*"
 ---
 ---
 
