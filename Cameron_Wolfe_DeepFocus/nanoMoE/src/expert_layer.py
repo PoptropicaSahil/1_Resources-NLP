@@ -9,10 +9,10 @@ from torch import nn
 class MLPExperts(nn.Module):
     def __init__(
         self,
-        d,
-        n_exp=8,
-        bias=False,
-        dropout=0.2,
+        d: int,
+        n_exp: int = 8,
+        bias: bool = False,
+        dropout: float = 0.2,
     ):
         """
         Arguments:
@@ -22,7 +22,7 @@ class MLPExperts(nn.Module):
         dropout: probability of dropout
         """
 
-        super().__init__()
+        super().__init__()  # type: ignore
         self.bias = bias
         self.c_fc = nn.Parameter(torch.empty(n_exp, d, 4 * d))
         self.c_proj = nn.Parameter(torch.empty(n_exp, 4 * d, d))
@@ -31,7 +31,7 @@ class MLPExperts(nn.Module):
         self.gelu = nn.GELU()
         self.dropout = nn.Dropout(dropout)
 
-    def forward(self, x):
+    def forward(self, x: torch.Tensor):
         x = torch.bmm(x, self.c_fc)
         if self.bias:
             x += self.fc_bias

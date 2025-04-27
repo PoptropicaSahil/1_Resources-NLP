@@ -12,13 +12,13 @@ from .decoder_only_block import Block
 class GPT(nn.Module):
     def __init__(
         self,
-        d,
-        H,
-        C,
-        V,
-        layers,
-        bias=False,
-        dropout=0.2,
+        d: int,
+        H: int,
+        C: int,
+        V: int,
+        layers: int,
+        bias: bool = False,
+        dropout: float = 0.2,
     ):
         """
         Arguments:
@@ -31,7 +31,7 @@ class GPT(nn.Module):
         dropout: probability of dropout
         """
 
-        super().__init__()
+        super().__init__()  # type: ignore
         self.transformer = nn.ModuleDict(
             dict(
                 wte=nn.Embedding(V, d),  # token embeddings
@@ -45,7 +45,7 @@ class GPT(nn.Module):
             )
         )
 
-    def forward(self, idx, targets=None):
+    def forward(self, idx: torch.Tensor, targets: torch.Tensor | None = None):
         # idx is a [B, C] matrix of token indices
         # targets is a [B, C] matrix of target (next) token indices
         device = idx.device

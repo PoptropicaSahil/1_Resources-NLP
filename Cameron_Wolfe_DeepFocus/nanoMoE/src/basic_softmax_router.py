@@ -6,10 +6,10 @@ from torch.nn import functional as F
 class BasicSoftmaxRouter(nn.Module):
     def __init__(
         self,
-        d,
-        n_exp=8,
-        top_k=2,
-        use_noisy_top_k=True,
+        d:int,
+        n_exp:int=8,
+        top_k:int=2,
+        use_noisy_top_k:bool=True,
     ):
         """
         Arguments:
@@ -19,7 +19,7 @@ class BasicSoftmaxRouter(nn.Module):
         use_noisy_top_k: whether to add noise when computing expert output
         """
 
-        super().__init__()
+        super().__init__() # type: ignore
 
         # router settings
         self.top_k = top_k
@@ -31,12 +31,12 @@ class BasicSoftmaxRouter(nn.Module):
         self.w_g = nn.Linear(d, n_exp, bias=False)
         self.w_noise = nn.Linear(d, n_exp, bias=False) if self.use_noisy_top_k else None
 
-    def forward(self, x):
+    def forward(self, x: torch.Tensor):
         # eq (4) in https://arxiv.org/abs/1701.06538
         logits = self.w_g(x)  # [B, C, d] -> [B, C, n_exp]
         if self.use_noisy_top_k:
             # (optionally) add noise into the router
-            noise = F.softplus(self.w_noise(x))
+            noise = F.softplus(self.w_noise(x)) # type: ignore
             noise *= torch.randn_like(noise)
             logits += noise
         top_k_logits, top_k_indices = logits.topk(self.top_k, dim=-1)  # [B, C, k]
