@@ -27,11 +27,9 @@ In other words, we multiply the normalized values by **weight and add a bias ins
 *Decoder-only Transformer Block*  <br>
 <img src="readme-images/decoder_block.png" alt="drawing" width="350"/>
 
-
 <br>
 *Predicting next tokens with an LLM* <br>
 <img src="readme-images/llm-decoder.png" alt="drawing" width="700"/>
-
 
 ## Expert Layers
 
@@ -163,29 +161,22 @@ DeepSeek-v3 model (the base model used to create the DeepSeek-R1 reasoning model
 *Note that it is not MoE + Decoder Blocks. <br> Red colour text says Every P-th layer becomes an MoE block (P=2)*
 <img src="readme-images/moe-transformer.png" alt="drawing" width="700"/>
 
-
-
 **Computing expert layer output.** Once we have used the routing mechanism to determine the set of active experts for a given token, we can compute the final output for this expert layer as follows:
 
 1. Send the tokens to their active experts.
 1. Compute the output of the active experts for these tokens.
 1. Take a weighted average of expert outputs for each token, where the weights are simply the probabilities assigned to each active expert by the router.
 
-
 <img src="readme-images/expert-block.png" alt="drawing" width="700"/>
 
-An implementation of a full expert layer is provided in 
+An implementation of a full expert layer is provided in
 [PyTorch Implementation.](./src/expert_layer.py)
-
 
 **MoE in PyTorch**. Now, we can modify the decoder-only transformer block to optionally use an expert layer in place of the usual feed-forward layer. This is a drop-in replacement of our MLP module with the new MoELayer, forming an MoEBlock.
 [PyTorch Implementation.](./src/moe_block.py)
 
-
-
 ---
 ---
-
 
 <details>
   <summary>## Click me</summary>
