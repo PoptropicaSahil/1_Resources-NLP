@@ -21,12 +21,13 @@
 <img src="readme-images/mdp.png" alt="drawing" width="500"/>
 
 - States and actions have discrete values *since finite set?*
-- Rewards are real numbers 
+- Rewards are real numbers
 
-In an MDP, we define two types of functions: (i) **transition** and (ii) **policy** functions. 
-- The **policy** takes a state as input, then outputs a *probability distribution over possible actions.* 
+In an MDP, we define two types of functions: (i) **transition** and (ii) **policy** functions.
+
+- The **policy** takes a state as input, then outputs a *probability distribution over possible actions.*
 - Given this output, we can *make a decision for the action* to be taken from a current state
-- The **transition** is then a function that *outputs the next state based upon the prior state and chosen action.* 
+- The **transition** is then a function that *outputs the next state based upon the prior state and chosen action.*
 
 Using these components, the agent can interact with the environment in an iterative fashion
 
@@ -38,25 +39,61 @@ As the agent interacts with the environment, we form a **trajectory** of states 
 
 <img src="readme-images/trajectory-return.png" alt="drawing" width="500"/>
 
-
 The goal of RL is to **train an agent** that **maximizes this return**. Equated as **finding a policy that maximizes the return** over trajectories that are sampled from the final policy
 
 <img src="readme-images/objective.png" alt="drawing" width="500"/>
 
-
 ## RL for LLMs
 
-At inference, the LM 
+At inference, the LM
+
 1. Predicts the next token.
 1. Adds the next token to the current input sequence.
 1. Repeats.
 
 To view this setup from the lens of RL
-- Consider our **language model to be the policy.** 
-- **State is the current textual sequence.** 
-- Given this state as input, the language model (policy) can **produce an action—the next token** — that modifies the current state to produce the **next state—the textual sequence with an added token**. 
+
+- Consider our **language model to be the policy.**
+- **State is the current textual sequence.**
+- Given this state as input, the language model (policy) can **produce an action—the next token** — that modifies the current state to produce the **next state—the textual sequence with an added token**.
 - Once a full textual sequence has been produced, we can obtain a **reward by rating the quality of the language model’s output**, either with a *human or a reward model* that has been trained over human preferences.
 
 > OOOOOOFFFFFFF!!
 
 We begin to see that the problem formulation used for RL is quite generic. There are many different problems that we can solve using this approach!
+
+## Terms and Definitions
+
+**Trajectory**: Sequence of states and actions that describe the path taken by an agent through an environment. <br>
+**Episode**: Sometimes the environment has a well-defined end state. When this happens, we refer to the trajectory so far as an episode.<br>
+
+<img src="readme-images/rewards.png" alt="drawing" width="300"/>
+
+**Return**: Summed reward received along a trajectory. Includes a **Discount Factor** to account for the fact that rewards further into the future are less important than those closer to the present.
+
+> Although the intuitive explanation of the discount factor is easy to understand, the exact formulation we see above is rooted in mathematics and is actually a complex topic of discussion [link](https://stats.stackexchange.com/questions/221402/understanding-the-role-of-the-discount-factor-in-reinforcement-learning)
+
+**Policy**
+
+- *Target policy*: the policy our agent is aiming to learn.
+- *Behavior Policy*: the policy being used by the agent to select actions as it interacts with the environment.
+
+**On vs. Off-Policy**: whether the behavior policy is the same as the target policy (on-policy) or not (off-policy).
+
+> *RL trains a neural network* via interaction with an environment. The policy that this neural network implements takes a current state as input and produces a probability distribution over potential actions as output.
+
+**$ε$-Greedy Policy**: How do we choose which action to actually execute? One of the most common approaches is an $ε$-greedy policy, which **selects the action with the highest expected return most of the time** (i.e., with probability $1 - ε$) and a random action otherwise. Such an approach balances [exploration and exploitation](https://www.geeksforgeeks.org/epsilon-greedy-algorithm-in-reinforcement-learning/) by allowing the agent to explore new actions in addition to those that it knows to work well.
+
+## Q-Learning
+
+> Q-Learning is a model-free RL algorithm, meaning that we don’t have to learn a model for the environment with which the agent interacts.
+
+We *don’t have to train a model to estimate the transition or reward functions* —these are just given to us as the agent interacts with the environment. <br>
+
+The goal of Q-Learning is to **learn the value of any action at a particular state.** We do this through learning a **Q function**, which defines the value of a state-action pair (input) as the *expected return* of taking that action at the current state under a certain policy and continuing afterwards according to the same policy.
+
+<img src="readme-images/q-vals.png" alt="drawing" width="500"/>
+
+To learn this Q function, we create a lookup table for state-action pairs. Each entry of the lookup table represents the Q value (i.e., the output of the Q function) for a particular state-action pair. These Q values are initialized as zero and updated—using the *[Bellman equation](https://towardsdatascience.com/the-bellman-equation-59258a0d3fa7)*—as the agent interacts with the environment until they become optimal.
+
+<img src="readme-images/q-learning.png" alt="drawing" width="500"/>
