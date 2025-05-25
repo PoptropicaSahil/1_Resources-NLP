@@ -55,7 +55,7 @@ To view this setup from the lens of RL
 
 - Consider our **language model to be the policy.**
 - **State is the current textual sequence.**
-- Given this state as input, the language model (policy) can **produce an action—the next token** — that modifies the current state to produce the **next state—the textual sequence with an added token**.
+- Given this state as input, the language model (policy) can **produce an action-the next token** - that modifies the current state to produce the **next state-the textual sequence with an added token**.
 - Once a full textual sequence has been produced, we can obtain a **reward by rating the quality of the language model's output**, either with a *human or a reward model* that has been trained over human preferences.
 
 > OOOOOOFFFFFFF!!
@@ -88,13 +88,13 @@ We begin to see that the problem formulation used for RL is quite generic. There
 
 > Q-Learning is a model-free RL algorithm, meaning that we don't have to learn a model for the environment with which the agent interacts.
 
-We *don't have to train a model to estimate the transition or reward functions* —these are just given to us as the agent interacts with the environment. <br>
+We *don't have to train a model to estimate the transition or reward functions* -these are just given to us as the agent interacts with the environment. <br>
 
 The goal of Q-Learning is to **learn the value of any action at a particular state.** We do this through learning a **Q function**, which defines the value of a state-action pair (input) as the *expected return* of taking that action at the current state under a certain policy and continuing afterwards according to the same policy.
 
 <img src="readme-images/q-vals.png" alt="drawing" width="700"/>
 
-To learn this Q function, we create a lookup table for state-action pairs. Each entry of the lookup table represents the Q value (i.e., the output of the Q function) for a particular state-action pair. These Q values are initialized as zero and updated—using the *[Bellman equation](https://towardsdatascience.com/the-bellman-equation-59258a0d3fa7)*—as the agent interacts with the environment until they become optimal.
+To learn this Q function, we create a lookup table for state-action pairs. Each entry of the lookup table represents the Q value (i.e., the output of the Q function) for a particular state-action pair. These Q values are initialized as zero and updated-using the *[Bellman equation](https://towardsdatascience.com/the-bellman-equation-59258a0d3fa7)*-as the agent interacts with the environment until they become optimal.
 
 **The Algorithm** <br>
 <img src="readme-images/q-learning.png" alt="drawing" width="700"/>
@@ -141,7 +141,7 @@ You sometimes take wrong turns to explore (ε-greedy)
 But when updating your mental map, you assume "next time I'll take the quickest path from here" (max Q-value)
 ```
 
-Brief mathematical note. The update rule used for Q-learning is mathematically guaranteed to find an optimal policy for any (finite) MDP—meaning that we will get a policy that maximizes our objective given sufficient iterations of the above process.
+Brief mathematical note. The update rule used for Q-learning is mathematically guaranteed to find an optimal policy for any (finite) MDP-meaning that we will get a policy that maximizes our objective given sufficient iterations of the above process.
 
 ## Deep Q-Learning
 

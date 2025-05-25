@@ -8,7 +8,7 @@
 
 > An attention function [maps] a query and a set of key-value pairs to an output, where the query, keys, values, and output are all vectors. The output is computed as a weighted sum of the values, where the weight assigned to each value is computed by a compatibility function of the query with the corresponding key.
 
-**Computing output.** Once we have the attention scores, deriving the output of self-attention is easy. **The output for each token is simply a weighted combination of value vectors**, where the **weights are given by the attention scores**. To compute this output, we simply multiply the attention matrix by the value matrix as shown above. Notably, **self-attention preserves the size** of its input—a transformed, d-dimensional output vector is produced for each token vector within the input.
+**Computing output.** Once we have the attention scores, deriving the output of self-attention is easy. **The output for each token is simply a weighted combination of value vectors**, where the **weights are given by the attention scores**. To compute this output, we simply multiply the attention matrix by the value matrix as shown above. Notably, **self-attention preserves the size** of its input-a transformed, d-dimensional output vector is produced for each token vector within the input.
 
 <img src="readme-images/layernorm.png" alt="drawing" width="700"/>
 
@@ -20,7 +20,7 @@ The normalization operation has two components:
 
 In other words, we multiply the normalized values by **weight and add a bias instead of directly using the normalized output.** Both the weight and bias are learnable parameters that can be trained along with other network parameters. Layer normalization is implemented in PyTorch and easy to use; see [here](https://pytorch.org/docs/stable/generated/torch.nn.LayerNorm.html)
 
-**Why the decoder?** Why do LLMs only use the decoder component of the transformer? **The key distinction between the encoder and decoder for a transformer is the type of attention that is used.** The **encoder uses bidirectional self-attention**, meaning all tokens in the sequence—including those before and after a given token—are considered by the self-attention mechanism. In contrast, the **decoder uses masked self-attention**, which prevents tokens from attending to those that follow them in the sequence.
+**Why the decoder?** Why do LLMs only use the decoder component of the transformer? **The key distinction between the encoder and decoder for a transformer is the type of attention that is used.** The **encoder uses bidirectional self-attention**, meaning all tokens in the sequence-including those before and after a given token-are considered by the self-attention mechanism. In contrast, the **decoder uses masked self-attention**, which prevents tokens from attending to those that follow them in the sequence.
 
 ## Basics revision
 
@@ -39,7 +39,7 @@ $$\textrm{Experts} : \{ E_i (\cdot) \}_{i=1}^{N}$$
 PyTorch Implementation. **Create several feed-forward networks instead of one**. The main complexity to this implementation is that **we do not use standard Linear layers** in PyTorch. Instead, **we wrap the weights of all experts into several Parameter** objects so that we can **compute the output of all experts in batch by using the batch matrix multiplication** operator.
 > This implementation avoids having to loop over each expert to compute its output, which drastically improves efficiency.
 
-Creating an MoE. To create an MoE-based decoder-only transformer, we simply **convert the transformer’s feed-forward layers to MoE—or expert—layers.** Each expert within the MoE layer has an architecture that is identical to the original, feed-forward network from that layer. We just have several independent copies of the original feed-forward network within an expert layer; see below.
+Creating an MoE. To create an MoE-based decoder-only transformer, we simply **convert the transformer’s feed-forward layers to MoE-or expert-layers.** Each expert within the MoE layer has an architecture that is identical to the original, feed-forward network from that layer. We just have several independent copies of the original feed-forward network within an expert layer; see below.
 
 <img src="readme-images/moe-layer.png" alt="drawing" width="700"/>
 
@@ -61,16 +61,16 @@ for i in range(num_blocks):
 
 ## Selecting experts
 
-Consider a single token—represented by a $d$-dimensional token vector. Our goal is to select a subset of experts (of size $k$) to process this token. In the MoE literature, we usually say that the token will be "routed" to these experts.
+Consider a single token-represented by a $d$-dimensional token vector. Our goal is to select a subset of experts (of size $k$) to process this token. In the MoE literature, we usually say that the token will be "routed" to these experts.
 
 <img src="readme-images/router.png" alt="drawing" width="700"/>
 
 The simplest possible routing algorithm would
 
 1. Apply a linear transformation to the token vector, forming a vector of size $N$ (i.e., the number of experts).
-2. Apply a softmax function to form a probability distribution over the set of experts for our token; see above. We can use this distribution to choose experts to which our token should be routed by selecting top-$K$ experts in the distribution. The top-$K$ values—the "expert probabilities"—are also important.
+2. Apply a softmax function to form a probability distribution over the set of experts for our token; see above. We can use this distribution to choose experts to which our token should be routed by selecting top-$K$ experts in the distribution. The top-$K$ values-the "expert probabilities"-are also important.
 
-Simple router implementation. As described above, this routing mechanism is actually quite simple—it’s **just a linear layer!** The output of our softmax router is:
+Simple router implementation. As described above, this routing mechanism is actually quite simple-it’s **just a linear layer!** The output of our softmax router is:
 
 - A set of top-K expert indices for each token in the input.
 - The top-K expert probabilities (i.e., the probability values for each of the top-K indices) associated with selected experts.
@@ -93,11 +93,11 @@ We choose the **tokens to be computed by each expert based on the output of the 
 
 <img src="readme-images/expert-capacity.png" alt="drawing" width="700"/>
 
-Most implementations of MoEs avoid this problem by **using fixed batch sizes ($=expert~capacity$) for each expert**—this is a useful trick for improving hardware utilization.
+Most implementations of MoEs avoid this problem by **using fixed batch sizes ($=expert~capacity$) for each expert**-this is a useful trick for improving hardware utilization.
 
 > The **expert capacity dictates the maximum number of tokens in each batch that can be sent to any single expert.**
 
-A capacity factor of one means that tokens are routed uniformly, while setting the capacity factor greater than one provides extra buffer to handle imbalanced token routing between experts—this comes at the cost of higher memory usage and lower efficiency.
+A capacity factor of one means that tokens are routed uniformly, while setting the capacity factor greater than one provides extra buffer to handle imbalanced token routing between experts-this comes at the cost of higher memory usage and lower efficiency.
 
 <img src="readme-images/capacity-factor.png" alt="drawing" width="700"/>
 
@@ -132,7 +132,7 @@ If we store both of these quantities in their own N-dimensional vectors, we can 
 
 ### Router z-loss
 
-**To complement the load balancing loss**, we have an extra auxiliary loss term, called the router z-loss. It constrains the size of the *logits—not probabilities*, this is before softmax is applied—predicted by the routing mechanism. The main logic is like a `torch.logsumexp(logits)`
+**To complement the load balancing loss**, we have an extra auxiliary loss term, called the router z-loss. It constrains the size of the *logits-not probabilities*, this is before softmax is applied-predicted by the routing mechanism. The main logic is like a `torch.logsumexp(logits)`
 
 <img src="readme-images/router-loss.png" alt="drawing" width="700"/>
 
@@ -148,11 +148,11 @@ We can just add each of these losses to our standard language modeling loss duri
 
 <img src="readme-images/combine-losses.png" alt="drawing" width="700"/>
 
-> Recent research has shown that—depending upon how the scaling factors are set—such auxiliary losses might sacrifice model performance for training stability in some cases.
+> Recent research has shown that-depending upon how the scaling factors are set-such auxiliary losses might sacrifice model performance for training stability in some cases.
 
 <img src="readme-images/deepseek-loss.png" alt="drawing" width="300"/>
 
-DeepSeek-v3 model (the base model used to create the DeepSeek-R1 reasoning model)— uses an *auxiliary-loss-free load balancing strategy*, which **simply adds a dynamic bias** to the router output when selecting top-K experts. This bias is increased for experts that are not selected enough and decreased for experts that are selected too much, thus increasing the chance that under-utilized experts will be selected. This dynamic bias is found to **improve load balancing without sacrificing model performance**.
+DeepSeek-v3 model (the base model used to create the DeepSeek-R1 reasoning model)- uses an *auxiliary-loss-free load balancing strategy*, which **simply adds a dynamic bias** to the router output when selecting top-K experts. This bias is increased for experts that are not selected enough and decreased for experts that are selected too much, thus increasing the chance that under-utilized experts will be selected. This dynamic bias is found to **improve load balancing without sacrificing model performance**.
 
 > (From Deepseek paper) We keep monitoring the expert load on the whole batch of each training step. At the end of each step, we will decrease the bias term by 𝛾 if its corresponding expert is overloaded, and increase it by 𝛾 if its corresponding expert is underloaded, where 𝛾 is a hyper-parameter called bias update speed.”
 

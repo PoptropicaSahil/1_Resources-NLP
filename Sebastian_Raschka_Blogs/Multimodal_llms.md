@@ -123,7 +123,7 @@ How we deal with the three major components during model training -
 Similar to the development of traditional text-only LLMs, the training of multimodal LLMs also involves two phases: pretraining and instruction finetuning.
 
 * For the image encoder, **CLIP** is commonly used and often **remains unchanged** during the entire training process
-* Keeping the **LLM part frozen during the pretraining** phase is also usual, focusing only on training the projector — a linear layer.
+* Keeping the **LLM part frozen during the pretraining** phase is also usual, focusing only on training the projector - a linear layer.
 * The **LLM is often unfrozen during multimodal instruction finetuning** (stage 2) to allow for more comprehensive updates.
 * However, in the cross-attention-based models **(Method B), the cross-attention layers are unfrozen throughout** the entire training process.
 
