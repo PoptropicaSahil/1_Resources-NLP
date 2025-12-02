@@ -97,9 +97,113 @@ Data passes through model - collect *for each layer*, distributions of activatio
 
 > Dynamic is slower (because during inference) but accurate. Static is faster but less accurate
 
-## 4-bit Quantization
-
+## **4-bit Quantization**
 
 ### GPTQ (full model on GPU)
 
+- asymmetric quantization
+- layer by layer (each layer independent)
+  - converts the layer's weights into the **inverse-Hessian**
+
+> Weights associated with smaller values in the Hessian matrix are more crucial because small changes in these weights can lead to significant changes in the model's performance
+
+- Now quantize and dequantize -- first element of the first row of weight matrix
+- Get quantization error -- weighted by inverse hessian
+- Redistribute this weighted quantization error over the other weights in the row
+  - i.e. use the same error value to update weights
+
+<img src="readme-images/gptq1.png" alt="drawing" width="700"/>
+
 ### GGUF (potentially offload layers on the CPU)
+
+- weights of a given layer are split into "super" blocks each containing a set of "sub" blocks
+- each "sub" block quantized usign *absmax*
+- scale factor for each "sub" block is quantized using the "super" block
+
+<img src="readme-images/gguf1.png" alt="drawing" width="700"/>
+
+> Downside of Post Training Quantization: does not consider the actual training process
+
+# Quantization Aware Training
+
+**Learn quantization parameters $(s, \alpha, \beta, z)$ during backward pass**
+
+> QAT usually more accurate than PTQ since quantization already considered during training
+
+During training, so-called *fake quants* are introduced
+
+<img src="readme-images/qat1.png" alt="drawing" width="600"/>
+
+QAT attempts to explore the loss landscape for “wide” minima to minimize the quantization errors as “narrow” minima tend to result in larger quantization errors.
+
+<img src="readme-images/qat2.png" alt="drawing" width="600"/>
+
+Consider if quantization is *not* considered during backward pass
+
+- We choose the weight with the smallest loss according to gradient descent
+- **However, that would introduce a larger quantization error if it’s in a “narrow” minima**
+
+If we consider quantization
+
+- A different updated weight will be selected **in a "wide" minima with a much lower quantization error**
+
+<img src="readme-images/qat3.png" alt="drawing" width="600"/>
+
+> *slightly unclear tbh*
+
+## 1-bit LLMs: BitNet
+
+Instead of Linear layers (FP16), use BitLinear layers (1-bit). Throughout the architecture
+
+<img src="readme-images/bit1.png" alt="drawing" width="600"/>
+
+For BitLinear layer
+
+|  params       | bit-width  |
+| ---           | ---        |
+| weights       | 1-bit      |
+| activations   | INT8       |
+
+### Weight quantization
+
+<img src="readme-images/bit2.png" alt="drawing" width="600"/>
+
+While training, the weights are stored in INT8 and then quantized to 1-bit using the signum function $(sign())$
+
+### Activation quantization (need to read properly)
+
+<img src="readme-images/bit3.png" alt="drawing" width="600"/>
+
+### Dequantization
+
+<img src="readme-images/bit4.png" alt="drawing" width="600"/>
+
+## 1.58 Bits
+
+- **Every single weight of the model is not just -1 or 1, but can now also take 0 as a value (ternary)**.
+
+- Interestingly, adding just the 0 greatly improves upon BitNet and allows for much faster computation.
+
+> During matrix multiplication, +1 indicates to add, -1 indicates to subtract. Having 0 tells we can skip this value
+
+General matmul <br>
+<img src="readme-images/bit158-1.png" alt="drawing" width="600"/>
+
+BitNet 1.58b, with its ternary weights <br>
+<img src="readme-images/bit158-1.png" alt="drawing" width="600"/>
+
+**Instead of multiplying and adding, we are now only adding!**
+
+### Quantization
+
+Uses *absmean* <br> Compresses weights distribution and uses absmean $\alpha$ to quantize. Then round off to either -1, 0, 1
+
+Compared to BitNet the activation quantization is the same except for - Instead of scaling the activations to range [0, 2ᵇ⁻¹], they are now scaled to
+[-2ᵇ⁻¹, 2ᵇ⁻¹] instead using absmax quantization.
+
+**1.58-bit quantization required (mostly) two tricks:**
+
+- Adding 0 to create ternary representations [-1, 0, 1]
+- absmean quantization for weights
+
+> **13B BitNet b1.58** is more efficient, in terms of latency, memory usage, and energy consumption than a **3B FP16 LLM**
