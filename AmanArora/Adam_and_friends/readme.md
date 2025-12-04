@@ -132,6 +132,10 @@ class SGD(Optimizer):
                 v = param_state['velocity']
             
             v = self.mu * v + d_p  # velocity update # TODO: does this also update the param_state['velocity']?
+            
+            # save updated velocity back to state
+            param_state['velocity'].copy_(v)
+
             p.data = p.data - self.lr * v # param update
 ```
 
