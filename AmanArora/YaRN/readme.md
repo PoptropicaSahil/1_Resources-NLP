@@ -15,11 +15,11 @@ PE_{(pos,2i)} &= \sin(pos/10000^{2i/d_{model}})  &= \sin(ω
 _i  * pos) \\ 
 PE_{(pos,2i+1)} &= \cos(pos/10000^{2i/d_{model}}) &= \cos(ω
 _i  * pos) \\
-ω_i &= 10000^{2i/d_{model}} ~ \dots ~  \text{frequency}
+ω_i &= 10000^{-2i/d_{model}} ~ \dots ~  \text{frequency}
 \end{align*}
 ```
 
-> The authors chose this function because they hypothesized it would allow the model to easily learn to attend by relative positions, since for any fixed offset $k$ ($PE_{pos+k}$), can be represented as a linear function of $PE_{pos+k}$ ***CHECK PROOF1.md***
+> The authors chose this function because they hypothesized it would allow the model to easily learn to attend by relative positions, since for any fixed offset $k$ ($PE_{pos+k}$), can be represented as a linear function of $PE_{pos}$ ***CHECK PROOF1.md***
 
 **Dropout is applied** to the sums of the embeddings and the positional encodings in both the encoder and decoder stacks
 
@@ -109,7 +109,7 @@ So the vector representation at position 1 gets rotated by, vector representatio
 Rotation is applied to pairs of dimensions (2,3), (4,5), (6,7), and (8,9). This is because RoPE applies 2D rotations to consecutive dimension pairs. **Each dimension pair gets rotated by a different frequency, where:**
 
 ```math
-\theta_{i} = 10000^{2i/d_{model}}
+\theta_{i} = 10000^{-2i/d_{model}}
 ```
 
 > **This creates a spectrum of rotation frequencies - lower dimensions rotate faster while higher dimensions rotate slower**
