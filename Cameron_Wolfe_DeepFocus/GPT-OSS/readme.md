@@ -31,8 +31,6 @@ Even if pre-norm structures are common, there is no clear answer if pre-norm or 
 
 <img src="readme-images/norm1.png" alt="drawing" width="700"/>
 
-Although a pre-normalization structure is most common, there is no clear answer in terms of whether pre or post-normalization is superior. In fact, recent work has even shown that post-normalization benefits training stability
-
 ### Attention Mechanism
 
 <img src="readme-images/attn1.png" alt="drawing" width="700"/>
