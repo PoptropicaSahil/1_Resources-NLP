@@ -14,7 +14,7 @@ Embeddings are stored as `np.ascontiguousarray`, required by FAISS for efficienc
 1. IndexFlatIP (< 50K): Exact index, based on inner product (dot product) similarity. Since vectors are normalised, this is equivalent to cosine similarity. `cos(a, b) = (a . b) / (||a|| * ||b||)`. If `a` and `b` are normalised, then `cos(a, b) = a . b`
 2. IndexIVFFlat (50K-500K): Inverted file index. Partitions the vector space into `nlist` Voronoi cells using k-means clustering. During search, only `nprobe` cells are searched
 3. IndexIVPQ (500K-5M): Product Quantisation index. Same as IVF but vectors in each cell are quantised using product quantisation
-4. IndexHNSWFlat (500K-5M): Hierarchical Navigable Small World graph index. Vectors are nodes and edges are connected in Heirarchical strcuture. Search is greedy graph traversal. Very fast + very high recall, but memory intensive (stores graph in memory), slow to build. Cannot remove vectors after building, (append only)
+4. IndexHNSWFlat (500K-5M): Hierarchical Navigable Small World graph index. Vectors are nodes and edges are connected in Heirarchical structure. Search is greedy graph traversal. Very fast + very high recall, but memory intensive (stores graph in memory), slow to build. Cannot remove vectors after building, (append only)
 5. IndexIVFPQ + OPQ rotation(Optimised Product Quantisation) (5M+): Aggressive compression
 6. FAISS.index_cpu_to_gpu(): Single GPU can search billions of vectors in milliseconds
 
@@ -24,15 +24,12 @@ Embeddings are stored as `np.ascontiguousarray`, required by FAISS for efficienc
 - YAML files are structured, need not overlap chunks. Sliding window works for longer information
 - Max sequence length of 512 tokens, but effective quality drops before. Short, focused passages best
 
-> Long 500-token passage about "loan requirements and closing cost estimates" blurs chunking quality. Including keywords abd topics in embedding adds noise (for smaller models like TAS-B). For larger models, prepending topics may help. Include metadata when passing to LLM reranker.
+> Long 500-token passage about "car engine building materials" blurs chunking quality. Including keywords abd topics in embedding adds noise (for smaller models like TAS-B). For larger models, prepending topics may help. Include metadata when passing to LLM reranker.
 
 **1:N Vector mapping:**
 
-- Typical chunk produces 2-4 vectors in TAS-B index + N vectors in MPNet index (one per FAQ query). `FaissIndex.build()` tracks which FAISS row belongs to which chunk via `row_to_chunk`
+- Typical chunk produces 2-4 vectors in TAS-B index + N vectors in MPNet index (one per FAQ query). `FaissIndex.build()` tracks which FAISS row belongs to which chunk
 - At search time, FAISS rows 20, 21, 22 may all belong to chunk 5. `max-sim` aggregation collapses these back to a single score per chunk
-
-> While metadata is passed to LLM, we avoid passing the FAQs. FAQs are retrievel time signals used by MPNet, not really useful for relevance judegement by LLM
-
 - Can also add retrieval signals/scores to reranker - LLM can use this as a weak prior. But in general, LLMs aren't great at interpreting numeric scores, they either anchor to them heavily or ignore them.
 
 - If system evolved to split long docs into chunks,then include parent context into the chunk
@@ -49,11 +46,11 @@ As the system grows
 
 Improvements
 
-- Replace BM25 with Learnt Sparse model like SPLADE (learns term importance weights)
-- Query rewriting: "How long do I have to pay it" --> "How long do I pay MIP on a FHA loan" (better recall, but risks query drift)
+- Replace BM25 with Learnt Sparse model like `SPLADE` (learns term importance weights)
+- `Query rewriting`: "How long do I have to build it" --> "How long do I build my engine" (better recall, but risks query drift)
 - HyDE (Hypothetical Document Embeddings): Generate hypothetical answer to query using LLM, then embed IT and search. Drawbacks: adds LLM latency, can hallucinate, doeesn't help when query is well-formed already
 - ColBERT: Token-level late interaction. Store one vector per token. Compute MaxSim between query and document tokens. Much higher recall, but storage stonks 100x
-- Caching: Embedding cache for history+query pairs. But not useful in banking (freedom w/o context vs while selecting buttons!)
+- Caching: Embedding cache for history+query pairs
 - Better embeddings: E5-large-v2 or BGE-large (larger but better) - Chinese!
 - Cohere embeddings / OpenAI text embeddings (costly, slower, but better)
 - Weighted RRF
@@ -61,19 +58,19 @@ Improvements
 
 ## Good System
 
-- `to chunk texts -> list[str]`: **1:N mapping** - title, description, summary, sub topic etc. Each vector encoded independently. Best matching score is kept via **max-sim**. Useful for msmarco-distilbert-tasb (ASYMMETRIC)
+- `#1 -> list[str]`: **1:N mapping** - title, description, summary, sub topic etc. Each vector encoded independently. Best matching score is kept via **max-sim**. Useful for msmarco-distilbert-tasb (ASYMMETRIC)
   - 66M params
   - Trained on MS MARCO with Topic Aware Sampling (**TAS**) with Balanced training (**B**)
-  - TAS-B embeddings are not normalised during training, so raw dot product preserves signal.
+  - TAS-B embeddings are not normalised during training, so raw dot product preserves signal
 
-- `to faq texts -> list[str]`: **1:N mapping** - one vector per FAQ query. Best matching score is kept via **max-sim**. Useful for all-mpnet-base-v2 (SYMMETRIC)
+- `#2 -> list[str]`: **1:N mapping** - one vector per FAQ query. Best matching score is kept via **max-sim**. Useful for all-mpnet-base-v2 (SYMMETRIC)
   - Very reliable in industry
   - Trained on 1B+ **sentence pairs**
   - Embeddings are L2 normalised during training. Dot product equals cosine similarity.
 
-- `to sparse -> str`: Concatenates title, keywords, topic name into single string. Description adds noise, covered by dense indexes
+- `#3 -> str`: Concatenates title, keywords, topic name into single string. Description adds noise, covered by dense indexes
 
-> Create a special `row_to_chunk` mapping from each FAISS row back to parent chunk index. max-sim only keeps the best score per chunk (across its vectors)
+> It is useful to create a special `row_to_chunk` mapping from each FAISS row back to parent chunk index. max-sim only keeps the best score per chunk (across its vectors)
 
 - BM25 matches exact words, helps because dense models may have not seen those terms in their training
 - RRF used for aggregation. **RRF IS SCORE AGNOSTIC, only uses rank positions**. We use `k=60` as default. RRF score = `1 / (k + rank)`

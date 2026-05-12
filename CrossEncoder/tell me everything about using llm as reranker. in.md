@@ -79,7 +79,7 @@ For example, ranking 1000 documents for a single query with a BERT-based cross-e
 
 `<IMPORTANT>` 
 
-**ColBERT (Contextualized Late Interaction over BERT)** introduces an elegant middle ground between cross-encoders and bi-encoders. Unlike cross-encoders that jointly encode query and document, ColBERT independently encodes them into **multi-vector representations**—one embedding per token—and delays interaction until a final scoring step.[^20][^21][^22][^23]
+**ColBERT (Contextualized Late Interaction over BERT)** introduces an elegant middle ground between cross-encoders and bi-encoders. Unlike cross-encoders that jointly encode query and document, ColBERT independently encodes them into **multi-vector representations**-one embedding per token-and delays interaction until a final scoring step.[^20][^21][^22][^23]
 
 #### ColBERT Architecture
 
@@ -89,7 +89,7 @@ The **late interaction mechanism** computes relevance via the **MaxSim** operati
 
 $$ S(q, d) = \sum_{i \in |E_q|} \max_{j \in |E_d|} (E_{q_i} \cdot E_{d_j}^T) $$
 
-For each query token embedding $E_{q_i}$, the model finds the most similar document token embedding using dot product, then sums these maximum similarities across all query tokens. This captures fine-grained semantic matching—each query term finds its best match in the document, regardless of position.[^23][^24][^21][^25]
+For each query token embedding $E_{q_i}$, the model finds the most similar document token embedding using dot product, then sums these maximum similarities across all query tokens. This captures fine-grained semantic matching-each query term finds its best match in the document, regardless of position.[^23][^24][^21][^25]
 
 #### ColBERT's Efficiency-Effectiveness Trade-off
 
@@ -97,7 +97,7 @@ ColBERT achieves **near-cross-encoder effectiveness** with **significantly bette
 
 However, **ColBERT's storage requirements are substantial: storing one embedding per token means the index size scales linearly with the number of tokens in the corpus.** For the MS MARCO passage collection (8.8M passages), this can require hundreds of gigabytes. Compression techniques like **residual quantization** in ColBERTv2 and **token pruning** reduce this footprint by 50-70% with minimal accuracy loss.[^26][^27][^28][^20]
 
-Recent work shows ColBERT's late interaction internally implements a **semantic variant of BM25**. Mechanistic interpretability studies reveal specialized attention heads that compute soft term frequency, weight by IDF-like signals, and perform length normalization—mirroring BM25's components but operating on contextualized embeddings rather than exact lexical matches.[^2]
+Recent work shows ColBERT's late interaction internally implements a **semantic variant of BM25**. Mechanistic interpretability studies reveal specialized attention heads that compute soft term frequency, weight by IDF-like signals, and perform length normalization-mirroring BM25's components but operating on contextualized embeddings rather than exact lexical matches.[^2]
 
 ## Large Language Models as Rerankers
 
@@ -213,7 +213,7 @@ $$ p_i^T = \frac{\exp(s_i / T)}{\sum_j \exp(s_j / T)} $$
 
 where $T > 1$ (typically 2-5). Higher temperatures spread probability mass more evenly, revealing subtle similarities the teacher perceives between documents.[^52][^54]
 
-**Contrastive Partial Ranking Distillation (CPRD)** specifically targets cross-encoder to dual-encoder distillation. Rather than matching all scores, CPRD focuses on preserving the relative order among **hard negatives**—documents the teacher ranks highly but incorrectly. This is formulated as a contrastive loss that maximizes similarity to valid hard negatives and minimizes it to lower-ranked negatives:[^49][^50]
+**Contrastive Partial Ranking Distillation (CPRD)** specifically targets cross-encoder to dual-encoder distillation. Rather than matching all scores, CPRD focuses on preserving the relative order among **hard negatives**-documents the teacher ranks highly but incorrectly. This is formulated as a contrastive loss that maximizes similarity to valid hard negatives and minimizes it to lower-ranked negatives:[^49][^50]
 
 $$ \mathcal{L}_{CPRD} = -\sum_{i} \sum_{j < J_i^*} \log \frac{\exp(v_i^T t_{c_{ij}})}{\sum_{k=j}^{K} \exp(v_i^T t_{c_{ik}})} $$
 
@@ -298,7 +298,7 @@ _Effectiveness is relative to BM25 baseline; speed is approximate queries per se
 
 ## Conclusion
 
-Reranking technology has evolved from statistical methods like BM25 through neural cross-encoders and late interaction models to sophisticated LLM-based approaches. Traditional methods provide the foundation—BM25's term frequency and IDF weighting, cross-encoders' joint query-document attention, ColBERT's efficient multi-vector matching—each addressing specific limitations of its predecessors.[^20][^21][^1][^2]
+Reranking technology has evolved from statistical methods like BM25 through neural cross-encoders and late interaction models to sophisticated LLM-based approaches. Traditional methods provide the foundation-BM25's term frequency and IDF weighting, cross-encoders' joint query-document attention, ColBERT's efficient multi-vector matching-each addressing specific limitations of its predecessors.[^20][^21][^1][^2]
 
 LLM-based rerankers represent the latest frontier, leveraging instruction-following and reasoning capabilities to achieve strong zero-shot performance across diverse domains. Pairwise prompting offers practical effectiveness with moderate-sized models, listwise approaches excel with the largest LLMs, and attention-based methods like ICR provide efficient alternatives to generation. Fine-tuning and distillation techniques further enhance performance, enabling smaller models to match or exceed larger zero-shot counterparts.[^44][^32][^45][^30][^49][^50][^40][^29]
 

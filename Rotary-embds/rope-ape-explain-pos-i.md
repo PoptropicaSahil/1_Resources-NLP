@@ -41,8 +41,34 @@ Example
 [0, 1, 2, 3, \ldots, 510, 511] \quad (\text{embedding dimensions}) \\
 ( \textit{element wise addition } ) \\
 [0, 1, 2, 3, \ldots, 510, 511] \quad (\text{APE dimensions}      )
-
 ```
+
+<hr>
+
+If token embedding is:
+
+```math
+x_{pos} =
+[x_0,x_1,x_2,x_3,\dots,x_{510},x_{511}]
+```
+
+Then APE transforms it into:
+
+```math
+\widetilde{x}_{pos} =
+[
+x_0 + \sin(w_0 \cdot pos), \quad
+x_1 + \cos(w_0 \cdot pos), \quad
+x_2 + \sin(w_1 \cdot pos), \quad
+x_3 + \cos(w_1 \cdot pos), \quad
+\dots,
+x_{510} + \sin(w_{255} \cdot pos), \quad
+x_{511} + \cos(w_{255} \cdot pos)
+]
+```
+
+<hr>
+
 
 ### Visualizing the Matrix
 
@@ -66,3 +92,51 @@ $w$ depends *only* on $i$ and $d$, not on $pos$. Because $i$ increases as you mo
 
 * `Early dimensions` (small $i$) `have very high frequencies`, meaning the sine/cosine values change rapidly as $pos$ increases. This helps the model distinguish words that are close together
 * `Later dimensions` (large $i$) `have very low frequencies`, changing slowly across $pos$. This helps the model understand long-range relative positions
+
+
+
+## ROPE
+
+$w$ remains the same!
+
+- Instead of adding positional encoding to inputs, we `rotate the input embeddings` to get after-rope embeddings
+- In RoPE, we don't add; we **rotate** the existing token embeddings (specifically, the Query and Key vectors in the attention mechanism)
+ 
+
+Assume a token's input vector at a given row as $x$, with its features being $(x_0, x_1, x_2, \dots, x_{511})$.
+
+RoPE takes pairs of these features—$(x_0, x_1)$, $(x_2, x_3)$, etc.—and rotates them by an angle determined by `both their position` ($pos$) and `their dimension index` ($i$)
+
+>` In APE too, the positional encoding only depended on` $pos$ `and` $i$; `but in RoPE the rotation depends on the actual values of the input features` $x_{2i}$ `and` $x_{2i+1}$ `as well`
+
+```math
+\begin{pmatrix} x'_{2i} \\ x'_{2i+1} \end{pmatrix} = \begin{pmatrix} \cos(w_i \cdot pos) & -\sin(w_i \cdot pos) \\ \sin(w_i \cdot pos) & \cos(w_i \cdot pos) \end{pmatrix} \begin{pmatrix} x_{2i} \\ x_{2i+1} \end{pmatrix}
+```
+
+Yes, $w$ is the same as APE
+
+Doing this for the entire embedding vector - easy to create the block-diagonal rotation matrix. Again, rotation is applied to a pair of dimensions at a time
+
+<hr>
+
+If token embedding is:
+
+```math
+x_{pos} =
+[x_0,x_1,x_2,x_3,\dots,x_{510},x_{511}]
+```
+
+Then RoPE transforms it into:
+
+```math
+\widetilde{x}_{pos} =
+[
+R_0(pos)\begin{bmatrix}x_0\\x_1\end{bmatrix},
+R_1(pos)\begin{bmatrix}x_2\\x_3\end{bmatrix},
+\dots,
+R_{255}(pos)\begin{bmatrix}x_{510}\\x_{511}\end{bmatrix}
+]
+```
+
+<hr>
+

@@ -150,9 +150,9 @@ Due to Chameleon's native multi-modality, authors experienced many unique diffic
 
 Although the Chameleon architecture largely matches the structure of the unified embedding model described above, **notice that Chameleon has no image encoder!** Instead, we **directly quantize images into discrete token embeddings**, as described in [this paper](https://arxiv.org/abs/2203.13131).
 
-> Note: Fuyu (a model!) breaks images into patches—and linearly projects these patches to make them the same size as a text token vector. Then, the LLM can directly ingest these image patch embeddings as input. *The main motivation for this approach is the fact that relevant information from the image may be lost when we pass that image through a vision encoder - CRAZY TO ASSUME THIS?!*
+> Note: Fuyu (a model!) breaks images into patches-and linearly projects these patches to make them the same size as a text token vector. Then, the LLM can directly ingest these image patch embeddings as input. *The main motivation for this approach is the fact that relevant information from the image may be lost when we pass that image through a vision encoder - CRAZY TO ASSUME THIS?!*
 
-Unlike Chameleon, **Llama 4 uses a vision encoder that is based upon MetaCLIP** — an open replication of CLIP that is trained in conjunction with an LLM to
+Unlike Chameleon, **Llama 4 uses a vision encoder that is based upon MetaCLIP** - an open replication of CLIP that is trained in conjunction with an LLM to
 
 - improve the quality of its embeddings
 - better align the visual embeddings with textual embeddings from the LLM
@@ -194,7 +194,7 @@ In a nutshell -
 
 If a sequence much longer than the sequences upon which the LLM was trained is passed, the performance of the model will drastically deteriorate. Position embeddings play a key role in an LLM’s ability to generalize to longer context lengths
 
-Position encoding schemes—including RoPE—fail to generalize well to long context lengths. RoPE performs similarly to absolute position encodings when generalizing to long context lengths. However, the **No Positional Embedding (NoPE) scheme, which simply removes position embeddings from the model, is surprisingly capable of generalizing to longer contexts.**
+Position encoding schemes-including RoPE-fail to generalize well to long context lengths. RoPE performs similarly to absolute position encodings when generalizing to long context lengths. However, the **No Positional Embedding (NoPE) scheme, which simply removes position embeddings from the model, is surprisingly capable of generalizing to longer contexts.**
 
 <img src="readme-images/nope.png" alt="drawing" width="700"/> <br>
 
@@ -212,7 +212,7 @@ $$
 Softmax(x_i) = \dfrac{\exp(x_i)} {\sum_{j=1}^{N} \exp(x_j)}
 $$
 
-**The denominator of this expression—the sum of raw attention scores for all pairs of tokens in the sequence** — will become larger with increasing context length, but the numerator is decoupled from the context length and fixed in magnitude. These two facts create an interesting phenomenon in attention scores for long contexts: *attention scores get smaller as the context length grows larger*. To mitigate this issue, Scalable-Softmax is used -
+**The denominator of this expression-the sum of raw attention scores for all pairs of tokens in the sequence** - will become larger with increasing context length, but the numerator is decoupled from the context length and fixed in magnitude. These two facts create an interesting phenomenon in attention scores for long contexts: *attention scores get smaller as the context length grows larger*. To mitigate this issue, Scalable-Softmax is used -
 $$
 Scalable-Softmax(x_i) = \dfrac{N^{s \cdot x_i}} {\sum_{j=1}^{N} N^{s \cdot x_j}}
 $$
@@ -236,7 +236,7 @@ Training directy on long context is memory intensive. Instead we can train the m
 
 > We continued training the model in mid-training to improve core capabilities with **new training recipes including long context extension using specialized datasets.** This enabled us to enhance model quality while also *unlocking best-in-class 10M input context length* for Llama 4 Scout - from Llama 4 blog
 
-> In most cases, the training data used for context extension is synthetic—either created with heuristics or an LLM—due to the difficulty of collecting real long-context data. *The quality of the synthetic data used for context extension can drastically impact the model's capabilities*. This data must accurately resemble and capture the types of tasks that the model will solve in practice. **The long context abilities of Llama 4 models break down in practice, possibly due to this issue.**
+> In most cases, the training data used for context extension is synthetic-either created with heuristics or an LLM-due to the difficulty of collecting real long-context data. *The quality of the synthetic data used for context extension can drastically impact the model's capabilities*. This data must accurately resemble and capture the types of tasks that the model will solve in practice. **The long context abilities of Llama 4 models break down in practice, possibly due to this issue.**
 
 There are two main categories of approaches used for extending the context of an LLM:
 

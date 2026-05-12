@@ -243,7 +243,7 @@ This FAQ was primarily written by [Xiao et al., 2023](https://arxiv.org/abs/2309
 
 1. **What does "working on infinite-length inputs" imply for LLMs?**
 
-    Handling infinite-length text with LLMs presents challenges. Notably, storing all previous Key and Value (KV) states demands significant memory, and models might struggle to generate text beyond their training sequence length. Attention Sink models addresses this by retaining only the most recent tokens and attention sinks, discarding intermediate tokens. This enables the model to generate coherent text from recent tokens without a cache reset — a capability not seen in earlier methods.
+    Handling infinite-length text with LLMs presents challenges. Notably, storing all previous Key and Value (KV) states demands significant memory, and models might struggle to generate text beyond their training sequence length. Attention Sink models addresses this by retaining only the most recent tokens and attention sinks, discarding intermediate tokens. This enables the model to generate coherent text from recent tokens without a cache reset - a capability not seen in earlier methods.
 
 2. **Is the context window of LLMs expanded?**
 

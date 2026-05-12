@@ -147,6 +147,8 @@ The `Assistant` role has three channels within it -- `final` (shown in UI), `ana
 
 #### **Absolute Postition Embeddings (APE)**
 
+> **`Added basic, yet important notes on APE`** [**`here`**](../../Rotary-embds/ape-explain-pos-i.md)
+
 <img src="readme-images/pe1.png" alt="drawing" width="500"/>
 
 #### **RoPE** 

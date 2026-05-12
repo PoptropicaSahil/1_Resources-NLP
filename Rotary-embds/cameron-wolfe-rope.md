@@ -2,12 +2,12 @@
 
 ## Producing Key and Value vectors
 
-RoPE is a hybrid of absolute and relative position embeddings that operates by **modifying the query and key vectors in self-attention. Unlike absolute position embeddings, RoPE acts upon every transformer layer—not just the input layer**. In the standard transformer architecture, we produce key and query vectors by linearly projecting the sequence of token vectors for a given layer. For a single token in the input sequence, we can formulate this operation as shown below, where we linearly project a single token embedding. The figure below displays the creation of a key vector, but we follow the same exact approach—with a different weight matrix—to produce query and value vectors too.
+RoPE is a hybrid of absolute and relative position embeddings that operates by **modifying the query and key vectors in self-attention. Unlike absolute position embeddings, RoPE acts upon every transformer layer-not just the input layer**. In the standard transformer architecture, we produce key and query vectors by linearly projecting the sequence of token vectors for a given layer. For a single token in the input sequence, we can formulate this operation as shown below, where we linearly project a single token embedding. The figure below displays the creation of a key vector, but we follow the same exact approach-with a different weight matrix-to produce query and value vectors too.
 
 ![alt text](wolfe-image.png)
 *Projecting a token vector to form a key in self-attention*
 
-RoPE incorporates position information into the creation of key and query vectors by **multiplying the weight matrix used in the above operation by a unique rotation matrix.** Here, this rotation matrix is computed based upon the absolute position of a token in the sequence—the amount that a given vector is rotated depends upon its position in the sequence. This modified operation is shown below, where we again depict the creation of key vectors. The same strategy is applied to the creation of query vectors, but **we do not modify the creation of value vectors.**
+RoPE incorporates position information into the creation of key and query vectors by **multiplying the weight matrix used in the above operation by a unique rotation matrix.** Here, this rotation matrix is computed based upon the absolute position of a token in the sequence-the amount that a given vector is rotated depends upon its position in the sequence. This modified operation is shown below, where we again depict the creation of key vectors. The same strategy is applied to the creation of query vectors, but **we do not modify the creation of value vectors.**
 
 ![alt text](wolfe-image-1.png)
 *Incorporating position information via a rotation matrix*
@@ -24,7 +24,7 @@ This matrix is block diagonal and **each block in the matrix is a 2 × 2 rotatio
 
 When we take this standard outer product between the rotated keys and queries, however, something interesting happens.
 
-**The two rotation matrices—used to rotate the keys and queries, respectively—combine to form a single rotation matrix $R(θ, n - m)$.** 
+**The two rotation matrices-used to rotate the keys and queries, respectively-combine to form a single rotation matrix $R(θ, n - m)$.** 
 
 **In other words, the combination of rotating both the key and query vectors in self-attention captures the relative distance between tokens in the sequence. This is the crux of RoPE!**
 
