@@ -1,6 +1,11 @@
 # Attention Sinks in LLMs for endless fluency
 
 > Taken from Tom Aarsen's awesome blog on HuggingFace [here](https://huggingface.co/blog/tomaarsen/attention-sinks). He released a drop in replacement for the `AutoModel` class that implements attention sinks. What a legend!
+
+> ALSO READ (VERY NICE): EVAN MILLER's QUIET ATTENTION
+
+<img src="../Cameron_Wolfe_DeepFocus/GPT-OSS/readme-images/evan-miller1.png" style="height:240px"/>
+
 @article{xiao2023streamingllm,
     title={Efficient Streaming Language Models with Attention Sinks},
     author={Xiao, Guangxuan and Tian, Yuandong and Chen, Beidi and Han, Song and Lewis, Mike},

@@ -65,11 +65,11 @@ To solve this issue, authors use an approach simlar to (not exactly same though)
 
 ### Mixture of Experts (MoE)
 
-Instead of dense feedforward layers, every P-th layer is replaced with a MoE layer **(stride P)**. Each MoE layer has several expertsi.e. feedforward networks with their own independent weights. *Each MoE block consists of a **standard linear router** projection that maps residual activations to scores for each expert*
+Instead of dense feedforward layers, every P-th layer is replaced with a MoE layer **(stride P)**. Each MoE layer has several experts i.e. feedforward networks with their own independent weights. *Each MoE block consists of a **standard linear router** projection that maps residual activations to scores for each expert*
 
 > For a token (d-dim vector), we want to select a subset of experts(of size k) that will perform a forward pass on this token.
 
-To aggregate the outputs of each expert, we simply take a weighted average across all experts, where weights are the softmax scores from the router. *"We select the **top-4 experts** for each token given by the router, and weiht the output of each expert by the softmax of the router projection over only the selected experts"*
+To aggregate the outputs of each expert, we simply take a weighted average across all experts, where weights are the softmax scores from the router. *"We select the **top-4 experts** for each token given by the router, and weight the output of each expert by the softmax of the router projection over only the selected experts"*
 
 **Load balancing:** (i) model learns to route all tokens to single expert (*routing collapse*), (ii) numerical unstabilities while training. MoEs use a **load balancing loss** that is minimised when
 
@@ -108,7 +108,9 @@ To reduce numerical instability, another auxiliary loss term - **router-z loss**
 
 <img src="readme-images/tool1.png" alt="drawing" width="500"/>
 
-When the special `START TOOL>` token is generated, we
+> **`ALSO READ: Aman Arora's FANTASTIC blog on tool use in LLMs`** [**`here`**](../../AmanArora/tool_calling_agentic.md)
+
+When the special `<START TOOL>` token is generated, we
 
 1. Stop generating text with the LLM
 1. Parse arguments for the tool call from model's output
@@ -141,7 +143,7 @@ The `Assistant` role has three channels within it -- `final` (shown in UI), `ana
 
 ### Long Context
 
-> ***READ: AMAN ARORA'S YARN BLOG (1_Resources_NLP/AmanArora/YaRN/readme.md)***
+> **`ALSO READ: Aman Arora's FANTASTIC blog on YARN`** [**`here`**](../../AmanArora/YaRN/readme.md)
 
 #### **Absolute Postition Embeddings (APE)**
 

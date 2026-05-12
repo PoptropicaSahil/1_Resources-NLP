@@ -1,5 +1,7 @@
 **SOURCE <https://www.youtube.com/watch?v=o29P0Kpobz0&list=TLPQMTYwNjIwMjTbxWqBbI_SAg&index=3>**
 
+> Also read: [**`Aman Arora's FANTASTIC blog on YARN`**](../AmanArora/YaRN/readme.md)
+
 ## Notes
 
 ### Absolute positional embeddings
